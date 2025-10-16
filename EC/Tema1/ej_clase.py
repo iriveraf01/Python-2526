@@ -48,10 +48,7 @@ Pide palabra al usuario y muestra cuantas letras tiene, pero sin contar las voca
 
 pala = input("Introduce una palabra: ")
 contador = 0
-for i in range(len(pala)):
-    if pala[i] in "aeiouAEIOU":
+for i in pala:
+    if i in "aeiouAEIOU":
         contador+=1
-        pass
-    else:
-        print(pala[i])
 print(f"La palabra tiene {len(pala)} letras y sin vocales tiene {contador} letras.")
