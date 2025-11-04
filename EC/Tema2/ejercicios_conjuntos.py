@@ -43,8 +43,8 @@
 
 # cadena = "Hola adios hola, cola, adios, parchis"
 # resultado = contar_palabras(cadena)
-# for palabra, freq in resultado.items():
-#     print(f"La palabra '{palabra}' aparece {freq} veces.")
+# for palabra, veces in resultado.items():
+#     print(f"La palabra '{palabra}' aparece {veces} veces.")
 
 
 # Ejercicio 5 – Lotería.
@@ -59,32 +59,39 @@
 # conjuntos. Debes retornar una tupla con la cantidad de números acertados y la cantidad
 # de números no acertados, es decir (acertados, no_acertados).
 
-# import random
+import random
 
-# def premios():
-#     tiradas = set()
-#     while len(tiradas) < 20:
-#         tirada = random.randint(0, 99)
-#         tiradas.add(tirada)
-#     return tiradas
+def premios():
+    tiradas = set()
+    # Genero tiradas hasta tener 20 números únicos
+    while len(tiradas) < 20:
+        tirada = random.randint(0, 99)
+        # Añado la tirada al conjunto (si ya existe, no se añade)
+        tiradas.add(tirada)
+    return tiradas
 
-# def apuesta():
-#     jugada = set()
-#     while len(jugada) < 5:
-#         numero = random.randint(0, 99)
-#         jugada.add(numero)
-#     return jugada
+def apuesta():
+    jugada = set()
+    # Genero jugada hasta tener 5 números únicos
+    while len(jugada) < 5:
+        numero = random.randint(0, 99)
+        # Añado el número al conjunto (si ya existe, no se añade)
+        jugada.add(numero)
+    return jugada
 
-# def comprobacion(tiradas, jugada):
-#     acertados = tiradas.intersection(jugada)
-#     no_acertados = jugada - tiradas
-#     return (len(acertados), len(no_acertados))
-# tiradas = premios()
-# jugada = apuesta()
-# resultado = comprobacion(tiradas, jugada)
-# print(f"Tiradas de la lotería: {tiradas}")
-# print(f"Números jugados: {jugada}")
-# print(f"Números acertados: {resultado[0]}, Números no acertados: {resultado[1]}")
+def comprobacion(tiradas, jugada):
+    # Intersection significa números que están en ambos conjuntos
+    acertados = tiradas.intersection(jugada)
+    # El menos significa números que están en jugada pero no en tiradas
+    no_acertados = jugada - tiradas
+    return (len(acertados), len(no_acertados))
+
+tiradas = premios()
+jugada = apuesta()
+resultado = comprobacion(tiradas, jugada)
+print(f"Tiradas de la lotería: {tiradas}")
+print(f"Números jugados: {jugada}")
+print(f"Números acertados: {resultado[0]}, Números no acertados: {resultado[1]}")
 
 
 # Ejercicio 6 – Agenda telefónica
@@ -99,14 +106,20 @@
 
 # agenda = {}
 # def introducir_contacto(nombre, telefono, direccion):
+#     # Si el contacto ya existe, no lo añadimos
+#     if nombre in agenda:
+#         return "El contacto ya existe"
+#     # Se añade el nombre como clave y una tupla (teléfono, dirección) como valor
 #     agenda[nombre] = (telefono, direccion)
 #     return "Contacto añadido"
 
 # def buscar_contacto(nombre):
+#     # Retorna el contacto si existe, sino un mensaje de no encontrado
 #     return agenda.get(nombre, "Contacto no encontrado")
 
 # def eliminar_contacto(nombre):
 #     if nombre in agenda:
+#         # Elimina el contacto por el nombre
 #         del agenda[nombre]
 #         return "Contacto eliminado"
 #     else:
@@ -127,7 +140,6 @@
 # print(mostrar_agenda())
 
 
-
 # Ejercicio 7 – Poker
 # Vamos a representar una mano de poker utilizando una tupla de cinco elementos, donde
 # cada elemento es una tupla (valor, palo).
@@ -146,60 +158,60 @@
 # - 'color'
 # - none Si no tiene ninguna combinación válida.
 
-import random
+# import random
 
-def generar_mano():
-    valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    palos = ['picas', 'corazones', 'diamantes', 'tréboles']
-    mano = set()
-    while len(mano) < 5:
-        # Choice selecciona un elemento aleatorio de la lista
-        valor = random.choice(valores)
-        palo = random.choice(palos)
-        mano.add((valor, palo))
-    return tuple(mano)
+# def generar_mano():
+#     valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+#     palos = ['picas', 'corazones', 'diamantes', 'tréboles']
+#     mano = set()
+#     while len(mano) < 5:
+#         # Choice selecciona un elemento aleatorio de la lista
+#         valor = random.choice(valores)
+#         palo = random.choice(palos)
+#         mano.add((valor, palo))
+#     return tuple(mano)
 
-def es_poker(mano):
-    # valores = a los valores de las cartas en la mano [10, 'J', '3', '10', '10']
-    # carta[0] es el valor de la carta
-    valores = [carta[0] for carta in mano]
-    # Recorro los valores y contamos cuántas veces aparece cada uno
-    for valor in set(valores):
-        # Si algún valor aparece 4 veces, es poker
-        if valores.count(valor) == 4:
-            return True
-    return False
+# def es_poker(mano):
+#     # valores = a los valores de las cartas en la mano [10, 'J', '3', '10', '10']
+#     # carta[0] es el valor de la carta
+#     valores = [carta[0] for carta in mano]
+#     # Recorro los valores y contamos cuántas veces aparece cada uno
+#     for valor in set(valores):
+#         # Si algún valor aparece 4 veces, es poker
+#         if valores.count(valor) == 4:
+#             return True
+#     return False
 
-def es_color(mano):
-    # palos = a los palos de las cartas en la mano ['picas', 'corazones', 'picas', 'picas', 'picas']
-    # carta[1] es el palo de la carta
-    palos = [carta[1] for carta in mano]
-    # Retorna True si todos los palos son iguales
-    # len(set(palos)) cuenta cuántos palos diferentes hay sin repetidos
-    return len(set(palos)) == 1
+# def es_color(mano):
+#     # palos = a los palos de las cartas en la mano ['picas', 'corazones', 'picas', 'picas', 'picas']
+#     # carta[1] es el palo de la carta
+#     palos = [carta[1] for carta in mano]
+#     # Retorna True si todos los palos son iguales
+#     # len(set(palos)) cuenta cuántos palos diferentes hay sin repetidos
+#     return len(set(palos)) == 1
 
-def es_escalera(mano):
-    valores_ordenados = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    # valores_mano = índices de los valores de las cartas en la mano según su orden
-    # carta[0] es el valor de la carta
-    # Básicamente convierte los valores de las cartas en sus índices correspondientes
-    valores_mano = sorted([valores_ordenados.index(carta[0]) for carta in mano])
-    # Retorna True si los valores son consecutivos
-    # all() es porque debe cumplirse para todos los elementos
-    return all(valores_mano[i] + 1 == valores_mano[i + 1] for i in range(len(valores_mano) - 1))
+# def es_escalera(mano):
+#     valores_ordenados = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+#     # valores_mano = índices de los valores de las cartas en la mano según su orden
+#     # carta[0] es el valor de la carta
+#     # Básicamente convierte los valores de las cartas en sus índices correspondientes
+#     valores_mano = sorted([valores_ordenados.index(carta[0]) for carta in mano])
+#     # Retorna True si los valores son consecutivos
+#     # all() es porque debe cumplirse para todos los elementos
+#     return all(valores_mano[i] + 1 == valores_mano[i + 1] for i in range(len(valores_mano) - 1))
 
-def evaluar_mano(mano):
-    if es_poker(mano):
-        return 'poker'
-    elif es_color(mano) and es_escalera(mano):
-        return 'escalera color'
-    elif es_escalera(mano):
-        return 'escalera'
-    elif es_color(mano):
-        return 'color'
-    else:
-        return 'No tiene combinación válida'
-mano = generar_mano()
-print(f"Mano generada: {mano}")
-resultado = evaluar_mano(mano) 
-print(f"Resultado de la mano: {resultado}")
+# def evaluar_mano(mano):
+#     if es_poker(mano):
+#         return 'poker'
+#     elif es_color(mano) and es_escalera(mano):
+#         return 'escalera color'
+#     elif es_escalera(mano):
+#         return 'escalera'
+#     elif es_color(mano):
+#         return 'color'
+#     else:
+#         return 'No tiene combinación válida'
+# mano = generar_mano()
+# print(f"Mano generada: {mano}")
+# resultado = evaluar_mano(mano) 
+# print(f"Resultado de la mano: {resultado}")
