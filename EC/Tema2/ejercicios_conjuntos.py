@@ -59,39 +59,39 @@
 # conjuntos. Debes retornar una tupla con la cantidad de números acertados y la cantidad
 # de números no acertados, es decir (acertados, no_acertados).
 
-import random
+# import random
 
-def premios():
-    tiradas = set()
-    # Genero tiradas hasta tener 20 números únicos
-    while len(tiradas) < 20:
-        tirada = random.randint(0, 99)
-        # Añado la tirada al conjunto (si ya existe, no se añade)
-        tiradas.add(tirada)
-    return tiradas
+# def premios():
+#     tiradas = set()
+#     # Genero tiradas hasta tener 20 números únicos
+#     while len(tiradas) < 20:
+#         tirada = random.randint(0, 99)
+#         # Añado la tirada al conjunto (si ya existe, no se añade)
+#         tiradas.add(tirada)
+#     return tiradas
 
-def apuesta():
-    jugada = set()
-    # Genero jugada hasta tener 5 números únicos
-    while len(jugada) < 5:
-        numero = random.randint(0, 99)
-        # Añado el número al conjunto (si ya existe, no se añade)
-        jugada.add(numero)
-    return jugada
+# def apuesta():
+#     jugada = set()
+#     # Genero jugada hasta tener 5 números únicos
+#     while len(jugada) < 5:
+#         numero = random.randint(0, 99)
+#         # Añado el número al conjunto (si ya existe, no se añade)
+#         jugada.add(numero)
+#     return jugada
 
-def comprobacion(tiradas, jugada):
-    # Intersection significa números que están en ambos conjuntos
-    acertados = tiradas.intersection(jugada)
-    # El menos significa números que están en jugada pero no en tiradas
-    no_acertados = jugada - tiradas
-    return (len(acertados), len(no_acertados))
+# def comprobacion(tiradas, jugada):
+#     # Intersection significa números que están en ambos conjuntos
+#     acertados = tiradas.intersection(jugada)
+#     # El menos significa números que están en jugada pero no en tiradas
+#     no_acertados = jugada - tiradas
+#     return (len(acertados), len(no_acertados))
 
-tiradas = premios()
-jugada = apuesta()
-resultado = comprobacion(tiradas, jugada)
-print(f"Tiradas de la lotería: {tiradas}")
-print(f"Números jugados: {jugada}")
-print(f"Números acertados: {resultado[0]}, Números no acertados: {resultado[1]}")
+# tiradas = premios()
+# jugada = apuesta()
+# resultado = comprobacion(tiradas, jugada)
+# print(f"Tiradas de la lotería: {tiradas}")
+# print(f"Números jugados: {jugada}")
+# print(f"Números acertados: {resultado[0]}, Números no acertados: {resultado[1]}")
 
 
 # Ejercicio 6 – Agenda telefónica
@@ -104,40 +104,43 @@ print(f"Números acertados: {resultado[0]}, Números no acertados: {resultado[1]
 # - Mostrar toda la agenda
 # - Eliminar toda la agenda
 
-# agenda = {}
-# def introducir_contacto(nombre, telefono, direccion):
-#     # Si el contacto ya existe, no lo añadimos
-#     if nombre in agenda:
-#         return "El contacto ya existe"
-#     # Se añade el nombre como clave y una tupla (teléfono, dirección) como valor
-#     agenda[nombre] = (telefono, direccion)
-#     return "Contacto añadido"
+agenda = {}
+def introducir_contacto(nombre, telefono, direccion):
+    # Si el contacto ya existe, no se añade
+    if nombre in agenda:
+        return "El contacto ya existe"
+    # Se añade el nombre como clave y una tupla (teléfono, dirección) como valor
+    agenda[nombre] = (telefono, direccion)
+    return "Contacto añadido"
 
-# def buscar_contacto(nombre):
-#     # Retorna el contacto si existe, sino un mensaje de no encontrado
-#     return agenda.get(nombre, "Contacto no encontrado")
+def buscar_contacto(nombre):
+    # Retorna el contacto si existe, sino un mensaje de no encontrado
+    return agenda.get(nombre, "Contacto no encontrado")
 
-# def eliminar_contacto(nombre):
-#     if nombre in agenda:
-#         # Elimina el contacto por el nombre
-#         del agenda[nombre]
-#         return "Contacto eliminado"
-#     else:
-#         return "Contacto no encontrado"
+def eliminar_contacto(nombre):
+    if nombre in agenda:
+        # Elimina el contacto por el nombre
+        del agenda[nombre]
+        return "Contacto eliminado"
+    else:
+        return "Contacto no encontrado"
     
-# def mostrar_agenda():
-#     return agenda
+def mostrar_agenda():
+    print("### AGENDA ###")
+    for nombre, (telefono, direccion) in agenda.items():
+        print(f"Nombre: {nombre}, Teléfono: {telefono}, Dirección: {direccion}")
+    print("### ··· ###")
 
-# def eliminar_agenda():
-#     agenda.clear()
+def eliminar_agenda():
+    agenda.clear()
 
-# print(introducir_contacto("Juan", "123456789", "Calle Falsa 123"))
-# print(introducir_contacto("Ana", "987654321", "Avenida Siempre Viva 456"))
-# print(buscar_contacto("Juan"))
-# print(buscar_contacto("Pedro"))
-# print(mostrar_agenda())
-# print(eliminar_contacto("Ana"))
-# print(mostrar_agenda())
+print(introducir_contacto("Juan", "123456789", "Calle 123"))
+print(introducir_contacto("Ana", "987654321", "Calle 456"))
+print(buscar_contacto("Juan"))
+print(buscar_contacto("Pedro"))
+print(mostrar_agenda())
+print(eliminar_contacto("Ana"))
+print(mostrar_agenda())
 
 
 # Ejercicio 7 – Poker
