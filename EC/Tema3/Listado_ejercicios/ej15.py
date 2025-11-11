@@ -73,7 +73,13 @@ class GestionCiudad:
                 ciudades_mayores.append(ciudad)
         return ciudades_mayores
     
-    
+    @classmethod
+    def numero_ciudades_de_un_pais(cls, pais):
+        ciudades_pais = []
+        for ciudad in cls.list_cities:
+            if ciudad.pais == pais:
+                ciudades_pais.append(ciudad)
+        return ciudades_pais
 
 list_cities = [
     Ciudad("Bogotá", 8000000, "Colombia", "América"),
@@ -111,3 +117,6 @@ ciudades_3000000 = GestionCiudad.mostrar_ciudades_mayores_a(3000000)
 for ciudad in ciudades_3000000:
     print(ciudad)
 print("###\t###")
+ciudades_australia = GestionCiudad.numero_ciudades_de_un_pais("Australia")
+for ciudad in ciudades_australia:
+    print(ciudad)
