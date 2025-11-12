@@ -79,7 +79,49 @@ class GestionCiudad:
         for ciudad in cls.list_cities:
             if ciudad.pais == pais:
                 ciudades_pais.append(ciudad)
+        return len(ciudades_pais)
+    
+    @classmethod
+    def media_poblacion_de_un_pais(cls, pais):
+        total_poblacion = 0
+        contador = 0
+        for ciudad in cls.list_cities:
+            if ciudad.pais == pais:
+                total_poblacion += ciudad.poblacion
+                contador += 1
+        if contador == 0:
+            return 0
+        return total_poblacion / contador
+    
+    @classmethod
+    def retornar_lista_ciudades_de_un_pais(cls, pais):
+        ciudades_pais = []
+        for ciudad in cls.list_cities:
+            if ciudad.pais == pais:
+                ciudades_pais.append(ciudad)
         return ciudades_pais
+    
+    @classmethod
+    def retornar_lista_ciudades_de_un_continente(cls, continente):
+        ciudades_continente = []
+        for ciudad in cls.list_cities:
+            if ciudad.continente == continente:
+                ciudades_continente.append(ciudad)
+        return ciudades_continente
+    
+    @classmethod
+    def sumar_habitantes(cls):
+        total_habitantes = 0
+        for ciudad in cls.list_cities:
+            total_habitantes += ciudad.poblacion
+        return total_habitantes
+    
+    @classmethod
+    def añadir_ciudad(cls, ciudad):
+        if ciudad in cls.list_cities:
+            return False
+        cls.list_cities.append(ciudad)
+        return True
 
 list_cities = [
     Ciudad("Bogotá", 8000000, "Colombia", "América"),
@@ -118,5 +160,22 @@ for ciudad in ciudades_3000000:
     print(ciudad)
 print("###\t###")
 ciudades_australia = GestionCiudad.numero_ciudades_de_un_pais("Australia")
-for ciudad in ciudades_australia:
+print(f"Número de ciudades en Australia: {ciudades_australia}")
+print("###\t###")
+media_poblacion_india = GestionCiudad.media_poblacion_de_un_pais("India")
+print(f"Media de población en India: {media_poblacion_india}")
+print("###\t###")
+ciudades_argentina = GestionCiudad.retornar_lista_ciudades_de_un_pais("Argentina")
+for ciudad in ciudades_argentina:
     print(ciudad)
+print("###\t###")
+ciudades_asia = GestionCiudad.retornar_lista_ciudades_de_un_continente("Asia")
+for ciudad in ciudades_asia:
+    print(ciudad)
+print("###\t###")
+total_habitantes = GestionCiudad.sumar_habitantes()
+print(f"Suma total de habitantes en todas las ciudades: {total_habitantes}")
+print("###\t###")
+nueva_ciudad = Ciudad("Barcelona", 5500000, "España", "Europa")
+resultado_añadir = GestionCiudad.añadir_ciudad(nueva_ciudad)
+print(f"¿Se añadió Barcelona? {resultado_añadir}")
