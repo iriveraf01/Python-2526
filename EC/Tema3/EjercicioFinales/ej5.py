@@ -32,7 +32,8 @@ class BicicletaElectrica(VehiculoElectrico):
         self.numero_marchas = numero_marchas
     
     def estado(self):
-        return f"[{self.identificador}] Batería {self.nivel_bateria}% | Tipo: Bicicleta eléctrica | Marchas: {self.numero_marchas}"
+        padre = super().estado()
+        return f"{padre} | Tipo: Bicicleta eléctrica | Marchas: {self.numero_marchas}"
 
 class PatineteElectrico(VehiculoElectrico):
     def __init__(self, identificador, nivel_bateria, vel_max):
@@ -40,7 +41,8 @@ class PatineteElectrico(VehiculoElectrico):
         self.vel_max = vel_max
     
     def estado(self):
-        return f"[{self.identificador}] Batería: {self.nivel_bateria}% | Tipo: Patinete eléctrico | Vel. max: {self.vel_max}km/h"
+        padre = super().estado()
+        return f"{padre} | Tipo: Patinete eléctrico | Vel. max: {self.vel_max}km/h"
 
 v1 = BicicletaElectrica("B-101", 85, 6)
 v2 = PatineteElectrico("P-202", 60, 25)
