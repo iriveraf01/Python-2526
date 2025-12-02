@@ -56,15 +56,15 @@ class DocumentoPDF(Recurso):
 class CursoInteractivo(Recurso):
     def __init__(self, titulo, recursos):
         # recursos: lista de objetos Recurso (Video o DocumentoPDF)
-        total_mb = sum(i.mb for i in recursos)
+        total_mb = sum(recurso.mb for recurso in recursos)
         super().__init__(titulo, total_mb)
         self.recursos = list(recursos)
 
     def mostrar_info(self):
         print(f"[CURSO] {self.titulo}. Tamaño total: {self.mb} MB.")
         print("Recursos incluidos:")
-        for i in self.recursos:
-            print(f"- {i.titulo} ({i.mb} MB)")
+        for recurso in self.recursos:
+            print(f"- {recurso.titulo} ({recurso.mb} MB)")
 
 
 v1 = Video("Introducción a Redes", 300.0, 45)
