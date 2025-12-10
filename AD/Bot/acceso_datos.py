@@ -76,34 +76,52 @@ def prueba_consulta():
 def diario_huerto_humedad():
     client = InfluxDBClient(HOST, PORT, USER, PASS, DB)
     sensor = 'agsex_sdf_huerto_lht65n_humedad'
+
     query = (
-        f'SELECT MEAN("value"), MIN("value"), MAX("value") FROM "%" '
+        'SELECT MEAN("value") AS mean, MIN("value") AS min, MAX("value") AS max '
+        'FROM "value" '
         f'WHERE "entity_id" = \'{sensor}\' '
-        f'AND time > now() - 2d '
-        f'GROUP BY time(1d)'
+        'AND time > now() - 2d '
+        'GROUP BY time(1d)'
     )
+
     respuesta = client.query(query)
     points = list(respuesta.get_points())
+
     if not points:
-        return ""
+        return None
     else:
-        print(points[1])
+        return {
+            "mean": points[1]["mean"],
+            "min": points[1]["min"],
+            "max": points[1]["max"]
+        }
+
 
 def diario_huerto_temperatura():
     client = InfluxDBClient(HOST, PORT, USER, PASS, DB)
     sensor = 'agsex_sdf_huerto_lht65n_temperatura'
+
     query = (
-        f'SELECT MEAN("value"), MIN("value"), MAX("value") FROM "°C" '
+        'SELECT MEAN("value") AS mean, MIN("value") AS min, MAX("value") AS max '
+        'FROM "value" '
         f'WHERE "entity_id" = \'{sensor}\' '
-        f'AND time > now() - 2d '
-        f'GROUP BY time(1d)'
+        'AND time > now() - 2d '
+        'GROUP BY time(1d)'
     )
+
     respuesta = client.query(query)
     points = list(respuesta.get_points())
+
     if not points:
-        return ""
+        return None
     else:
-        print(points[1])
+        return {
+            "mean": points[1]["mean"],
+            "min": points[1]["min"],
+            "max": points[1]["max"]
+        }
+
 
 if __name__ == '__main__':
     # ping()
