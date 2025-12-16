@@ -1,0 +1,94 @@
+:root {
+  --primary-green: #17cf17;
+  --dark-green: #0d8f0d;
+  --light-green: #e7f3e7;
+  --sidebar-bg: #f8fcf8;
+  --card-border: #d9e7d0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f6f8f6;
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--card-border);
+  padding: 1.5rem;
+  .logo {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    .bi-flower1 {
+      font-size: 2.5rem;
+      color: var(--primary-green);
+    }
+  }
+
+  .nav-link {
+    color: #0e1b0e;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    &:hover {
+      background-color: rgba(23, 207, 23, 0.1);
+      text-decoration: none;
+    }
+    &.active {
+      background-color: var(--light-green);
+      color: var(--dark-green);
+      font-weight: 500;
+    }
+    .bi {
+      margin-right: 0.75rem;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    &:hover {
+      background-color: var(--dark-green);
+      border-color: var(--dark-green);
+    }
+  }
+}
+
+.contenido-principal {
+  padding: 2rem;
+  .cabecera-dashboard {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: fit-content;
+  }
+}
+
+.tarjeta-estaditicas {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s;
+}
+.tarjeta-estaditicas:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
