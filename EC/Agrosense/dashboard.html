@@ -1,12 +1,55 @@
+<script src="js/miscriptDashboard.js"></script>
+<div class="cabecera-dashboard">
+  <h2>Dashboard de Plantas</h2>
+  <small class="text-body-secondary"
+    >Monitoreo en tiempo real de tu huerto</small
+  >
+</div>
+
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-3">
       <div class="tarjeta-estadisticas">
-        <h6 class="text-body-secondary">Total Plantas</h6>
-        <div class="icono">
-          <i class="bi bi-flower1"></i>
-          <h2>0</h2>
+        <div class="d-flex justify-content-between">
+          <h6 class="text-body-secondary">Total Plantas</h6>
+          <div class="icono">
+            <i class="bi bi-flower1"></i>
+          </div>
         </div>
+        <h2 id="totalPlantas">0</h2>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="tarjeta-estadisticas">
+        <div class="d-flex justify-content-between">
+          <h6 class="text-body-secondary">Recintos</h6>
+          <div class="icono">
+            <i class="bi bi-house-door"></i>
+          </div>
+        </div>
+        <h2>0</h2>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="tarjeta-estadisticas">
+        <div class="d-flex justify-content-between">
+          <h6 class="text-body-secondary">Sensores Activos</h6>
+          <div class="icono">
+            <i class="bi bi-cpu"></i>
+          </div>
+        </div>
+        <h2>0</h2>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="tarjeta-estadisticas">
+        <div class="d-flex justify-content-between">
+          <h6 class="text-body-secondary">Necesitan Atención</h6>
+          <div class="icono">
+            <i class="bi bi-exclamation-triangle"></i>
+          </div>
+        </div>
+        <h2>0</h2>
       </div>
     </div>
   </div>

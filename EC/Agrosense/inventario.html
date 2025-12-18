@@ -1,0 +1,142 @@
+<script src="js/miscriptInventario.js"></script>
+
+<div
+  class="cabecera-dashboard d-flex justify-content-between align-items-center"
+>
+  <div class="mb-2 mb-md-0">
+    <h2>Inventario de Plantas</h2>
+    <small class="text-body-secondary">Gestiona tu colección de plantas</small>
+  </div>
+  <div>
+    <button
+      class="btn btn-primary w-100"
+      data-bs-toggle="modal"
+      data-bs-target="#plantaNuevaModal"
+    >
+      <i class="bi bi-plus-circle"></i> Añadir Planta
+    </button>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="plantaNuevaModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-flower1 text-success"></i>
+          <span>Nueva Planta</span>
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row g-3">
+            <!-- Nombre de la Planta -->
+            <div class="col-md-6">
+              <label class="form-label">Nombre de la Planta *</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ej: Monstera Deliciosa"
+                required
+              />
+            </div>
+
+            <!-- Nombre Científico -->
+            <div class="col-md-6">
+              <label class="form-label">Nombre Científico</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ej: Monstera deliciosa"
+              />
+            </div>
+
+            <!-- Descripción -->
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                placeholder="Descripción de la planta, cuidados especiales, etc."
+              ></textarea>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="col-md-6">
+              <label class="form-label">
+                <i class="bi bi-house-door"></i>
+                Ubicación (Recinto)
+              </label>
+              <select class="form-select">
+                <option selected>-- Sin asignar --</option>
+                <option>Huerto</option>
+                <option>Invernadero</option>
+              </select>
+            </div>
+
+            <!-- Cantidad -->
+            <div class="col-md-6">
+              <label class="form-label">Cantidad</label>
+              <input type="number" class="form-control" value="1" min="1" />
+            </div>
+
+            <!-- Fecha adquisición -->
+            <div class="col-md-6">
+              <label class="form-label">Fecha de Adquisición</label>
+              <input type="date" class="form-control" />
+            </div>
+
+            <!-- Último riego -->
+            <div class="col-md-6">
+              <label class="form-label">Último Riego</label>
+              <input type="date" class="form-control" />
+            </div>
+
+            <!-- URL Imagen -->
+            <div class="col-12">
+              <label class="form-label">URL de Imagen (opcional)</label>
+              <input
+                type="url"
+                class="form-control"
+                placeholder="https://ejemplo.com/imagen.jpg"
+              />
+              <small class="text-muted">
+                Puedes dejar este campo vacío, se mostrará un icono por defecto
+              </small>
+            </div>
+
+            <!-- Notas -->
+            <div class="col-12">
+              <label class="form-label">Notas adicionales</label>
+              <textarea
+                class="form-control"
+                rows="2"
+                placeholder="Notas, observaciones, etc."
+              ></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" id="guardarPlanta">
+          <i class="bi bi-save"></i> Guardar Planta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

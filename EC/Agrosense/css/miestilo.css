@@ -49,19 +49,18 @@ body {
       margin-right: 0.75rem;
     }
   }
+}
 
-  .btn-primary {
-    background-color: var(--primary-green);
-    border-color: var(--primary-green);
-    &:hover {
-      background-color: var(--dark-green);
-      border-color: var(--dark-green);
-    }
+.btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+  &:hover {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
   }
 }
 
 .contenido-principal {
-  padding: 2rem;
   .cabecera-dashboard {
     background-color: #ffffff;
     border-radius: 1rem;
@@ -71,24 +70,39 @@ body {
     height: fit-content;
   }
 }
+/* 
+- tarjeta-estadisIcas tendrá un color de fondo blanco, radio de bordes de 1rem,
+padding 1.5rem y un borde de 1px de color –card-border, hacer que la transición
+dure 0.3s
+- Al pasar el ratón por encima de la tarjeta que haga un translateY de -5px y poner
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);- El icono de la tarjeta-estadísIcas ancho y alto de 48px radio del borde 0.75rem,
+tamaño de la fuente de 1.5rem y centrar el icono en el cuadrado.
+Hacer lo mismo para: Recintos(bi-house-door), Sensores AcIvos(bi-cpu) y
+Necesitan Atención(bi-exclamaIon-triangle).  */
 
-.tarjeta-estaditicas {
-  background-color: #ffffff;
+.tarjeta-estadisticas {
+  background-color: white;
   border-radius: 1rem;
   padding: 1.5rem;
   border: 1px solid var(--card-border);
   transition: all 0.3s;
 }
-.tarjeta-estaditicas:hover {
+.tarjeta-estadisticas:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.icono {
+.tarjeta-estadisticas .icono {
   width: 48px;
   height: 48px;
   border-radius: 0.75rem;
   font-size: 1.5rem;
+  background-color: var(--light-green);
+  color: var(--dark-green);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.modal-header {
+  background-color: var(--light-green);
 }
