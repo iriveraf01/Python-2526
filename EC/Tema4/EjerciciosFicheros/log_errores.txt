@@ -1,0 +1,3 @@
+[2024-11-20 10:05:01] ERROR: Fichero no encontrado en /data/a/fichero.txt
+[2024-11-20 10:06:15] WARN: Disco al 80%.
+[2024-11-20 10:07:05] ERROR: Conexión perdida con base de datos.
