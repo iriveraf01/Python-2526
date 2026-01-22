@@ -106,3 +106,61 @@ Necesitan Atención(bi-exclamaIon-triangle).  */
 .modal-header {
   background-color: var(--light-green);
 }
+
+.search-container {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input-group-text {
+  background-color: white;
+}
+
+.card-planta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.planta-nombre {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #0e1b0e;
+}
+
+.planta-cientifico {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
+}
+
+.invernadero {
+  font-size: 0.85rem;
+  color: darkgreen;
+  background-color: lightgreen;
+}
+
+.necesita-riego {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.linea {
+  border-top: 1px solid #f0f0f0;
+}
+
+.cantidad-number {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cantidad-label {
+  color: #6c757d;
+  font-size: 0.75rem;
+}
