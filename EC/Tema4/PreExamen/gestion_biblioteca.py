@@ -1,22 +1,3 @@
-# Clase Libro
-# Atributos de instancia:
-# - 2tulo (str): Título del libro
-# - autor (str): Nombre del autor
-# - isbn (str): Código ISBN único del libro
-# - fecha_publicacion (date2me): Fecha de publicación del libro
-# Métodos de instancia:
-# __init__(self, 2tulo: str, autor: str, isbn: str, fecha_publicacion: date2me) -> None
-# - Constructor que inicializa todos los atributos del libro
-# es_prestable(self) -> bool
-# - Entrada: Ninguna (usa la fecha actual del sistema)
-# - Salida: True si el libro puede prestarse, False en caso contrario
-# - Lógica: Un libro solo puede prestarse si han pasado más de 6 meses desde su
-# fecha de publicación hasta hoy
-# - Cálculo: Calcular la diferencia en meses entre fecha_publicacion y
-# date2me.now()
-# __str__(self) -> str
-# - Salida: String con formato: "'Titulo libro' por Autor y Apellidos (ISBN: 978-
-# 0132350884)"
 from datetime import datetime, timedelta
 
 class Libro:
