@@ -1,0 +1,34 @@
+[
+    {
+        "codigo": "PROD001",
+        "nombre": "Laptop Dell",
+        "categoria": "Electrónica",
+        "precio": 899.99,
+        "stock": 45,
+        "fecha_creacion": "2026-02-10T15:38:44.687066"
+    },
+    {
+        "codigo": "PROD002",
+        "nombre": "Mouse Logitech",
+        "categoria": "Electrónica",
+        "precio": 29.99,
+        "stock": 90,
+        "fecha_creacion": "2026-02-10T15:38:44.687268"
+    },
+    {
+        "codigo": "PROD003",
+        "nombre": "Arroz Integral",
+        "categoria": "Alimentación",
+        "precio": 3.5,
+        "stock": 300,
+        "fecha_creacion": "2026-02-10T15:38:44.687402"
+    },
+    {
+        "codigo": "PROD004",
+        "nombre": "Aceite de Oliva",
+        "categoria": "Alimentación",
+        "precio": 12.99,
+        "stock": 50,
+        "fecha_creacion": "2026-02-10T15:38:44.687456"
+    }
+]
