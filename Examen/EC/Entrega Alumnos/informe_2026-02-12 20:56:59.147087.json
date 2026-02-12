@@ -1,0 +1,12 @@
+{
+    "fecha_generacion": "2026-02-12T20:56:59.147087",
+    "fecha_generacion_legible": "jueves, 12 de febrero de 2026",
+    "clima_actual": {
+        "ciudad": "Madrid",
+        "temperatura": 18.5,
+        "sensacion_termica": "hola",
+        "descripcion": "Parcialmente nublado",
+        "humedad": 62,
+        "timestamps": "2026-02-12T20:56:59.147087"
+    }
+}
