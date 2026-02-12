@@ -4,7 +4,7 @@
         "nombre": "Laptop Dell",
         "categoria": "Electrónica",
         "precio": 899.99,
-        "stock": 45,
+        "stock": 90,
         "fecha_creacion": "2026-02-10T15:38:44.687066"
     },
     {
@@ -12,7 +12,7 @@
         "nombre": "Mouse Logitech",
         "categoria": "Electrónica",
         "precio": 29.99,
-        "stock": 90,
+        "stock": 180,
         "fecha_creacion": "2026-02-10T15:38:44.687268"
     },
     {
@@ -20,7 +20,7 @@
         "nombre": "Arroz Integral",
         "categoria": "Alimentación",
         "precio": 3.5,
-        "stock": 300,
+        "stock": 400,
         "fecha_creacion": "2026-02-10T15:38:44.687402"
     },
     {

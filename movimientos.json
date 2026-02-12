@@ -40,5 +40,47 @@
         "cantidad": 50,
         "fecha": "2026-02-10T15:38:44.688335",
         "observaciones": "Distribución tienda"
+    },
+    {
+        "producto_codigo": "PROD001",
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "fecha": "2026-02-12T12:48:17.593100",
+        "observaciones": "Compra proveedor"
+    },
+    {
+        "producto_codigo": "PROD002",
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "fecha": "2026-02-12T12:48:17.593145",
+        "observaciones": "Reposición"
+    },
+    {
+        "producto_codigo": "PROD003",
+        "tipo": "ENTRADA",
+        "cantidad": 150,
+        "fecha": "2026-02-12T12:48:17.593165",
+        "observaciones": "Compra mayorista"
+    },
+    {
+        "producto_codigo": "PROD001",
+        "tipo": "SALIDA",
+        "cantidad": 5,
+        "fecha": "2026-02-12T12:48:17.593234",
+        "observaciones": "Venta cliente"
+    },
+    {
+        "producto_codigo": "PROD002",
+        "tipo": "SALIDA",
+        "cantidad": 10,
+        "fecha": "2026-02-12T12:48:17.593289",
+        "observaciones": "Venta online"
+    },
+    {
+        "producto_codigo": "PROD003",
+        "tipo": "SALIDA",
+        "cantidad": 50,
+        "fecha": "2026-02-12T12:48:17.593326",
+        "observaciones": "Distribución tienda"
     }
 ]
