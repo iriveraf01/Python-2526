@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Hipotecas</title>
+    <link rel="stylesheet" href="miestilo.css">
+    <script defer src="miscript.js"></script>
+</head>
+
+<body>
+    <h1>Gestión de Hipotecas</h1>
+
+    <div id="galeria" class="galeria">
+        <!-- Aquí van las imágenes de las casas disponibles -->
+    </div>
+
+    <div id="detalle" class="detalle oculto">
+        <h2 id="detalle-nombre"></h2>
+        <p id="detalle-descripcion"></p>
+        <p><strong>Precio:</strong> <span id="detalle-precio"></span> €</p>
+        <button id="btn-calcular-hipoteca">Calcular Hipoteca</button>
+    </div>
+
+    <div id="hipoteca" class="hipoteca oculto">
+        <div class="hipoteca-contenido">
+            <div class="hipoteca-formulario">
+                <h3>Simulador de Hipoteca</h3>
+
+                <label>Precio de la vivienda:</label>
+                <input type="text" id="hipoteca-precio" readonly>
+
+                <label>Porcentaje a aplicar (%):</label>
+                <select id="hipoteca-porcentaje">
+                    <option value="2">2%</option>
+                    <option value="5">5%</option>
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                </select>
+
+                <label>Entrada inicial (€):</label>
+                <input type="number" id="hipoteca-entrada" min="0" placeholder="Introduce la entrada">
+
+                <label>Años para pagarla:</label>
+                <input type="number" id="hipoteca-anios" min="1" placeholder="Número de años">
+
+                <button id="btn-calcular">Calcular</button>
+            </div>
+
+            <div class="hipoteca-resultado">
+                <h3>Resultado</h3>
+                <p id="resultado-anual" class="resultado-anual">-- €/año</p>
+                <button id="btn-comprar" class="btn-comprar">Me la quedo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zona de templates -->
+    <template id="template-casa">
+        <div class="casa-img-container">
+            <span class="casa-ciudad"></span>
+            <img class="casa-img" src="" alt="">
+            <span class="casa-precio"></span>
+        </div>
+    </template>
+</body>
+
+</html>
