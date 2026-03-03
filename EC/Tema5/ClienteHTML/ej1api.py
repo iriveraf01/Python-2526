@@ -13,8 +13,10 @@
 # “El nombre no puede contener números”
 # Otro validador del nombre, que compruebe que todo es texto, si no raise ValueError con
 # el mensaje “El nombre no puede contener números”.
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 from datetime import datetime, date, time, timedelta
+from fastapi import FastAPI
+import uvicorn
 class CrearProducto(BaseModel):
     nombre: str = Field(..., min_length=3, max_length=100, description="Nombre del producto")
     precio: float = Field(..., gt=0, description="Precio en euros (debe ser positivo)")
@@ -39,21 +41,83 @@ class CrearProducto(BaseModel):
 # Crear una clase Producto con Pydantic, que incluirá id y fecha_creación de tipo
 # datetime.
 class Producto(BaseModel):
-    id : int
+    # Añadele una clase Config con json_schema_extra para mostrar en la documentación un
+    # ejemplo.
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "nombre": "Camiseta",
+                "precio": 19.99,
+                "descripcion": "Camiseta de algodón",
+                "categorias": ["Ropa", "Hombre"],
+                "stock": 100,
+                "fecha_creacion": "2024-06-01T12:00:00"
+            }
+        }
+    )
+    id: int
+    nombre: str
+    precio: float
+    descripcion: str | None
+    categorias: list[str]
+    stock: int
     fecha_creacion: datetime
-# Añadele una clase Config con json_schema_extra para mostrar en la documentación un
-# ejemplo.
 # Creamos una BD simulada:
-# productos_db: List[Producto] = []
-# siguiente_id = 1
+productos_db: list[Producto] = []
+siguiente_id = 1
 # - Crea el endpoint tipo POST de /productos, con response_model “Producto”.
 # Tendrá un método crearProducto con parámetro de entrada un producto de tipo
 # CrearProducto. Crea un nuevo producto y añadelo a productos_db, suma 1 a
 # siguiente_id y retorna el nuevo producto.
+app = FastAPI(
+    title="API de Productos hecho por mí",
+    description="API para gestionar productos con FastAPI y Pydantic",
+    version="1.0.0"
+)
+@app.post("/productos", response_model=Producto)
+def crear_producto(producto: CrearProducto):
+    global siguiente_id
+    nuevo_producto = Producto(
+        id=siguiente_id,
+        nombre=producto.nombre,
+        precio=producto.precio,
+        descripcion=producto.descripcion,
+        categorias=producto.categorias,
+        stock=producto.stock,
+        fecha_creacion=datetime.now()
+    )
+    productos_db.append(nuevo_producto)
+    siguiente_id += 1
+    return nuevo_producto
 # - Crea el endpoint tipo GET de /productos con response_model List[Producto] que
 # tendrá el método listar_productos que retorne productos_db.
+@app.get("/productos", response_model=list[Producto])
+def listar_productos():
+    return productos_db
 # - Crear el endpoint tipo GET de /productos/idProducto con respondse_model
 # “Producto”.
 # Tendrá un método obtener_producto(con id del producto de tipo int de entrada), que
 # recorre todo “productos_db” y cuando coincida con el id de producto pasado por
 # parámetro, lo devuelva.
+@app.get("/productos/{id_producto}", response_model=Producto)
+def obtener_producto(id_producto: int):
+    for producto in productos_db:
+        if producto.id == id_producto:
+            return producto
+    return {"error": "Producto no encontrado"}
+
+@app.get("/")
+async def root():
+    return {
+        "mensaje": "API de Productos funcionando correctamente",
+        "version": "1.0.0",
+        "endpoints": {
+            "crear_producto": "/productos (POST)",
+            "listar_productos": "/productos (GET)",
+            "obtener_producto": "/productos/{id_producto} (GET)"
+        }
+    }
+
+if __name__ == "__main__":
+    uvicorn.run("ej1api:app", host="127.0.0.1", port=8001)
