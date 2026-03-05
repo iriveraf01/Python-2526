@@ -16,6 +16,7 @@
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 from datetime import datetime, date, time, timedelta
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 class CrearProducto(BaseModel):
     nombre: str = Field(..., min_length=3, max_length=100, description="Nombre del producto")
@@ -64,8 +65,18 @@ class Producto(BaseModel):
     stock: int
     fecha_creacion: datetime
 # Creamos una BD simulada:
-productos_db: list[Producto] = []
-siguiente_id = 1
+productos_db: list[Producto] = [
+    Producto(
+        id=1,
+        nombre="Camiseta Básica",
+        precio=19.99,
+        descripcion="Camiseta de algodón 100% unisex",
+        categorias=["Ropa", "Unisex"],
+        stock=50,
+        fecha_creacion=datetime(2024, 6, 1, 12, 0, 0)
+    )
+]
+siguiente_id = 2 
 # - Crea el endpoint tipo POST de /productos, con response_model “Producto”.
 # Tendrá un método crearProducto con parámetro de entrada un producto de tipo
 # CrearProducto. Crea un nuevo producto y añadelo a productos_db, suma 1 a
@@ -74,6 +85,12 @@ app = FastAPI(
     title="API de Productos hecho por mí",
     description="API para gestionar productos con FastAPI y Pydantic",
     version="1.0.0"
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 @app.post("/productos", response_model=Producto)
 def crear_producto(producto: CrearProducto):
