@@ -29,20 +29,17 @@ class Planta(PlantaCreate):
     created_at: str = datetime.now().isoformat()
     updated_at: str = datetime.now().isoformat()
 
-
-def crear_planta(planta: PlantaCreate):
+def crear_planta(planta: PlantaCreate) -> Optional[Planta]:
     
     """Crea una nueva planta"""
     
     plantas = cargar_plantas()
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     nombre_planta = planta.nombre.lower()
-    planta_id = f"{nombre_planta.replace(" ", "_")}_{timestamp}"
-    
+    planta_id = f"{nombre_planta.replace(' ', '_')}_{timestamp}"    
     for p in plantas.values():
         if p.nombre.lower() == nombre_planta:
-            print(f"La planta con nombre {planta.nombre} ya existe.")
-            return
+            return None
     
     nueva_planta = Planta(
         id = planta_id,
@@ -61,6 +58,7 @@ def crear_planta(planta: PlantaCreate):
     plantas[planta_id] = nueva_planta
     guardar_plantas(plantas)
     print("Planta creada correctamente")
+    return nueva_planta
 
 def cargar_plantas() -> Dict[str, Planta]:
     """Veo mi archivo de plantas, si hay algo devuelvo el contenido del mismo"""
