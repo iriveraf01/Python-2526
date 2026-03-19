@@ -1,5 +1,6 @@
-/// <reference types="jquery" />
-$(function () {
+
+import { inicializarInventario } from "./miscriptInventario.js";
+  
   const contenido = document.querySelector("#contenido");
   loadHTML("dashboard.html", contenido);
 
@@ -19,21 +20,18 @@ $(function () {
       evento.target.classList.add("active");
       loadHTML(`${evento.target.id}.html`, contenido);
     }
+
+    // const modal =
+    //   bootstrap.Modal.getInstance(document.querySelector('#plantaNuevaModal'));
+    //   modal.hide();
   });
 
   async function loadHTML(url, objetivo) {
     const respuesta = await fetch(url);
     objetivo.innerHTML = await respuesta.text();
+
+    if (url == "inventario.html") {
+      inicializarInventario();
+    }
   }
 
-  // $("#contenido").load("dashboard.html");
-  // $(document).on(
-  //   "click",
-  //   "#dashboard, #recintos, #inventario, #reportes, #configuracion",
-  //   function () {
-  //     $(".nav .nav-link").removeClass("active");
-  //     $(this).addClass("active");
-  //     $("#contenido").load(`${this.id}.html`);
-  //   }
-  // );
-});

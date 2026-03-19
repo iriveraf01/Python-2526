@@ -171,9 +171,13 @@
 </div>
 
 <div class="container my-4">
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
-    <!-- Tarjeta de Planta -->
-    <div class="col">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 contenedorTarjetas">    
+    
+    <!-- Fin Tarjeta de Planta -->
+  </div>
+</div>
+<template id="templateTarjetaPlanta">
+  <div class="col">
       <div class="card card-planta">
         <img
           src="https://www.compo.de/dam/jcr:5e382c1a-8128-4670-9f96-a75044fe31b2/Kaktus%20Blumentopf.jpg?x=46&amp;y=41"
@@ -193,17 +197,17 @@
             class="d-flex align-items-center justify-content-between text-center mb-2"
           >
             <div>
-              <span class="cantidad-number text-dark-green">3</span>
+              <span class="cantidad-number text-dark-green planta-cantidad">3</span>
               <br />
               <span class="cantidad-label">CANTIDAD</span>
             </div>
             <div>
-              <span class="cantidad-number text-dark-green">23º</span>
+              <span class="cantidad-number text-dark-green planta-temperatura">23º</span>
               <br />
               <span class="cantidad-label">TEMP</span>
             </div>
             <div>
-              <span class="cantidad-number text-dark-green">40%</span>
+              <span class="cantidad-number text-dark-green planta-humedad">40%</span>
               <br />
               <span class="cantidad-label">HUMEDAD</span>
             </div>
@@ -225,6 +229,4 @@
         </div>
       </div>
     </div>
-    <!-- Fin Tarjeta de Planta -->
-  </div>
-</div>
+</template>
