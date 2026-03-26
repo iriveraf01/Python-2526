@@ -1,19 +1,4 @@
 {
-    "monstera_deliciosa_20260319181453": {
-        "nombre": "Monstera Deliciosa",
-        "nombre_cientifico": "Monstera deliciosa",
-        "descripcion": "Planta tropical con hojas grandes y agujereadas.",
-        "recinto_id": "salon_principal",
-        "cantidad": 1,
-        "imagen_url": "https://ejemplo.com/monstera.jpg",
-        "fecha_adquisicion": "2024-05-15",
-        "ultimo_riego": "2024-05-20",
-        "necesita_trasplante": false,
-        "notas": "Le gusta la luz indirecta y mucha humedad.",
-        "id": "monstera_deliciosa_20260319181453",
-        "created_at": "2026-03-19T18:14:53.334410",
-        "updated_at": "2026-03-19T18:14:53.334418"
-    },
     "naranjas_20260319181453": {
         "nombre": "Naranjita Deliciosa",
         "nombre_cientifico": "Naranjita deliciosa",
@@ -28,5 +13,20 @@
         "id": "monstera_deliciosa_20260319181453",
         "created_at": "2026-03-19T18:14:53.334410",
         "updated_at": "2026-03-19T18:14:53.334418"
+    },
+    "holo_20260326163228": {
+        "nombre": "holo",
+        "nombre_cientifico": "lolo",
+        "descripcion": "lolololololo",
+        "recinto_id": "Huerto",
+        "cantidad": 10,
+        "imagen_url": "",
+        "fecha_adquisicion": "2026-03-26",
+        "ultimo_riego": "2026-03-26",
+        "necesita_trasplante": false,
+        "notas": "popo",
+        "id": "holo_20260326163228",
+        "created_at": "2026-03-26T16:19:04.643471",
+        "updated_at": "2026-03-26T16:33:17.465356"
     }
 }

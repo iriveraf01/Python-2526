@@ -178,55 +178,63 @@
 </div>
 <template id="templateTarjetaPlanta">
   <div class="col">
-      <div class="card card-planta">
-        <img
-          src="https://www.compo.de/dam/jcr:5e382c1a-8128-4670-9f96-a75044fe31b2/Kaktus%20Blumentopf.jpg?x=46&amp;y=41"
-          class="card-img-top"
-          alt="Imagen de la planta"
-        />
-        <div class="card-body">
-          <h5 class="card-title planta-nombre">Nombre Planta</h5>
-          <h6 class="card-subtitle planta-cientifico">Nombre Científico</h6>
-          <span class="invernadero badge rounded-pill"
-            ><i class="bi bi-house-door"></i> Invernadero</span
-          >
-          <br />
-          <span class="necesita-riego badge rounded-pill">Necesita riego</span>
-          <hr class="linea" />
-          <div
-            class="d-flex align-items-center justify-content-between text-center mb-2"
-          >
-            <div>
-              <span class="cantidad-number text-dark-green planta-cantidad">3</span>
-              <br />
-              <span class="cantidad-label">CANTIDAD</span>
-            </div>
-            <div>
-              <span class="cantidad-number text-dark-green planta-temperatura">23º</span>
-              <br />
-              <span class="cantidad-label">TEMP</span>
-            </div>
-            <div>
-              <span class="cantidad-number text-dark-green planta-humedad">40%</span>
-              <br />
-              <span class="cantidad-label">HUMEDAD</span>
-            </div>
+    <div class="card card-planta">
+      <div class="contenedor-imagen text-center p-3">
+        <img class="card-img-top d-none" alt="Imagen de la planta" />
+        <i class="bi bi-flower1 icono-planta fs-1"></i>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title planta-nombre">Nombre Planta</h5>
+        <h6 class="card-subtitle planta-cientifico">Nombre Científico</h6>
+        <span class="invernadero badge rounded-pill">
+          <i class="bi bi-house-door"></i> Invernadero
+        </span>
+        <br />
+        <span class="necesita-riego badge rounded-pill">Normal</span>
+        <hr class="linea" />
+
+        <div class="d-flex align-items-center justify-content-between text-center mb-2">
+          <div>
+            <span class="cantidad-number text-dark-green planta-cantidad">3</span>
+            <br />
+            <span class="cantidad-label">CANTIDAD</span>
           </div>
-          <div class="d-flex align-items-center">
-            <button
-              type="button"
-              class="btn btn-outline-primary flex-fill me-2"
-            >
-              <i class="bi bi-eye"></i> Ver
-            </button>
-            <button type="button" class="btn btn-outline-secondary ms-1 me-2">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button type="button" class="btn btn-outline-danger ms-1">
-              <i class="bi bi-trash"></i>
-            </button>
+          <div>
+            <span class="cantidad-number text-dark-green planta-temperatura">23º</span>
+            <br />
+            <span class="cantidad-label">TEMP</span>
           </div>
+          <div>
+            <span class="cantidad-number text-dark-green planta-humedad">40%</span>
+            <br />
+            <span class="cantidad-label">HUMEDAD</span>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <button
+            type="button"
+            class="btn btn-outline-primary flex-fill me-2 btn-ver"
+          >
+            <i class="bi bi-eye"></i> Ver
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-outline-secondary ms-1 me-2 btn-editar"
+          >
+            <i class="bi bi-pencil"></i>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-outline-danger ms-1 btn-eliminar"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 </template>
