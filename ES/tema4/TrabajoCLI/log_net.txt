@@ -4,3 +4,52 @@
 [2026-04-22 16:53:34] ⚠️ ALERTA RED: Puertos no permitidos detectados
 [2026-04-22 16:54:03] NET: 28 puertos abiertos
 [2026-04-22 16:54:03] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:36:37] NET: 15 puertos abiertos
+[2026-04-22 17:36:37] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:39:00] NET: 15 puertos abiertos
+[2026-04-22 17:39:00] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:39:27] NET: 15 puertos abiertos
+[2026-04-22 17:39:27] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:39:39] NET: 15 puertos abiertos
+[2026-04-22 17:39:39] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:40:06] NET: 15 puertos abiertos
+[2026-04-22 17:40:06] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:40:32] NET: 15 puertos abiertos
+[2026-04-22 17:40:32] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 17:43:15] NET: 15 puertos abiertos
+[2026-04-22 17:43:15] ⚠️ ALERTA RED: Puertos no permitidos detectados: 111, 11200, 11100, 902, 53, 55880, 902, 22, 53, 36669
+[2026-04-22 17:43:41] NET: 15 puertos abiertos
+[2026-04-22 17:44:04] NET: 15 puertos abiertos
+[2026-04-22 17:44:04] ⚠️ ALERTA RED: Puertos no permitidos detectados: 902, 36669, 22, 11100, 11300, 902, 631, 11200, 53, 111
+[2026-04-22 17:44:31] NET: 15 puertos abiertos
+[2026-04-22 17:44:57] NET: 15 puertos abiertos
+[2026-04-22 17:45:23] NET: 15 puertos abiertos
+[2026-04-22 17:45:49] NET: 15 puertos abiertos
+[2026-04-22 17:46:15] NET: 15 puertos abiertos
+[2026-04-22 17:46:41] NET: 15 puertos abiertos
+[2026-04-22 17:47:07] NET: 15 puertos abiertos
+[2026-04-22 17:47:33] NET: 15 puertos abiertos
+[2026-04-22 17:48:00] NET: 15 puertos abiertos
+[2026-04-22 17:48:26] NET: 15 puertos abiertos
+[2026-04-22 17:48:52] NET: 15 puertos abiertos
+[2026-04-22 17:49:18] NET: 15 puertos abiertos
+[2026-04-22 17:49:44] NET: 15 puertos abiertos
+[2026-04-22 17:49:55] NET: 15 puertos abiertos
+[2026-04-22 17:49:55] ⚠️ ALERTA RED: Puertos no permitidos detectados: 631, 11200, 902, 111, 111, 11200, 22, 11100, 36669, 53
+[2026-04-22 17:50:21] NET: 15 puertos abiertos
+[2026-04-22 17:50:48] NET: 15 puertos abiertos
+[2026-04-22 17:51:14] NET: 15 puertos abiertos
+[2026-04-22 17:51:40] NET: 15 puertos abiertos
+[2026-04-22 17:52:06] NET: 15 puertos abiertos
+[2026-04-22 17:52:32] NET: 15 puertos abiertos
+[2026-04-22 17:52:58] NET: 15 puertos abiertos
+[2026-04-22 17:53:24] NET: 15 puertos abiertos
+[2026-04-22 17:53:51] NET: 15 puertos abiertos
+[2026-04-22 17:54:17] NET: 15 puertos abiertos
+[2026-04-22 17:54:43] NET: 15 puertos abiertos
+[2026-04-22 17:55:09] NET: 15 puertos abiertos
+[2026-04-22 17:55:35] NET: 15 puertos abiertos
+[2026-04-22 17:56:01] NET: 15 puertos abiertos
+[2026-04-22 17:57:44] NET: 15 puertos abiertos
+[2026-04-22 17:57:44] ⚠️ ALERTA RED: Puertos no permitidos detectados: 11200, 22, 111, 55880, 631, 11200, 111, 11100, 36669, 902
+[2026-04-22 17:58:11] NET: 15 puertos abiertos
