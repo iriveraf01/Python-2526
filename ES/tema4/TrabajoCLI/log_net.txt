@@ -1,0 +1,6 @@
+[2026-04-22 16:53:07] NET: 28 puertos abiertos
+[2026-04-22 16:53:07] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 16:53:34] NET: 28 puertos abiertos
+[2026-04-22 16:53:34] ⚠️ ALERTA RED: Puertos no permitidos detectados
+[2026-04-22 16:54:03] NET: 28 puertos abiertos
+[2026-04-22 16:54:03] ⚠️ ALERTA RED: Puertos no permitidos detectados
