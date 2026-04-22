@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dentify - Tu Sonrisa, Nuestra Prioridad</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#2196f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary": "#0061a4",
+                        "on-primary-fixed": "#001d36",
+                        "primary-fixed-dim": "#9ecaff",
+                        "tertiary-fixed-dim": "#bac9d3",
+                        "surface-bright": "#f7f9fb",
+                        "primary-fixed": "#d1e4ff",
+                        "secondary-container": "#91f78e",
+                        "surface-tint": "#0061a4",
+                        "on-primary-fixed-variant": "#00497d",
+                        "secondary-fixed-dim": "#78dc77",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed": "#94f990",
+                        "tertiary": "#526069",
+                        "outline": "#707883",
+                        "outline-variant": "#bfc7d4",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#3b4951",
+                        "on-background": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "inverse-primary": "#9ecaff",
+                        "secondary": "#006e1c",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#404752",
+                        "on-tertiary-fixed": "#0f1d25",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-fixed": "#002204",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#002c4f",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#1f2d35",
+                        "on-secondary-fixed-variant": "#005313",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#85949e",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#00731e",
+                        "tertiary-fixed": "#d6e5ef",
+                        "background": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "lg": "48px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "h2": ["32px", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "h3": ["24px", { lineHeight: "1.4", letterSpacing: "0", fontWeight: "600" }],
+                        "h1": ["40px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-sm": ["14px", { lineHeight: "1.2", letterSpacing: "0.02em", fontWeight: "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-white/90 backdrop-blur-md sticky w-full top-0 z-50 border-b border-slate-100 shadow-[0px_4px_20px_rgba(33,150,243,0.08)]">
+<div class="flex justify-between items-center px-6 py-4 max-w-[1200px] mx-auto">
+<div class="text-2xl font-black tracking-tight text-blue-600">
+                Dentify
+            </div>
+<nav class="hidden md:flex gap-8">
+<a class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1 hover:text-blue-500 transition-colors duration-200 opacity-80 scale-95 transition-all" href="#">Servicios</a>
+<a class="text-slate-600 font-medium hover:text-blue-500 transition-colors duration-200" href="#">Doctores</a>
+<a class="text-slate-600 font-medium hover:text-blue-500 transition-colors duration-200" href="#">Precios</a>
+<a class="text-slate-600 font-medium hover:text-blue-500 transition-colors duration-200" href="#">Contacto</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-label-sm text-label-sm text-primary hover:bg-primary-fixed-dim/20 px-4 py-2 rounded-lg transition-colors">
+                    Iniciar Sesión
+                </button>
+<button class="bg-primary-container text-white font-label-sm text-label-sm px-6 py-2.5 rounded-lg shadow-[0_4px_14px_0_rgba(33,150,243,0.39)] hover:shadow-[0_6px_20px_rgba(33,150,243,0.23)] hover:bg-primary-container/90 transition-all">
+                    Reservar Cita
+                </button>
+<button class="md:hidden text-slate-600">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="w-full">
+<!-- Hero Section -->
+<section class="relative pt-24 pb-32 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/30 to-background z-0"></div>
+<div class="max-w-container-max mx-auto px-gutter relative z-10 grid md:grid-cols-2 gap-12 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed-dim/30 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">verified</span>
+                        Atención Dental Mejor Valorada
+                    </div>
+<h1 class="font-h1 text-h1 text-on-surface">
+                        Tu Sonrisa,<br/>
+<span class="text-primary-container">Nuestra Prioridad</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                        Experimenta una atención dental empática y de alta precisión en un ambiente relajante. Reserva tu consulta hoy y da el primer paso hacia una sonrisa más saludable.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-container text-white font-label-sm text-label-sm px-8 py-4 rounded-lg shadow-[0_4px_14px_0_rgba(33,150,243,0.39)] hover:shadow-[0_6px_20px_rgba(33,150,243,0.23)] hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                            Reservar Cita
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-surface text-primary border border-primary-fixed-dim font-label-sm text-label-sm px-8 py-4 rounded-lg hover:bg-primary-fixed-dim/10 transition-colors flex items-center gap-2">
+                            Iniciar Sesión
+                            <span class="material-symbols-outlined text-sm">login</span>
+</button>
+</div>
+<div class="flex items-center gap-4 pt-4">
+<div class="flex -space-x-3">
+<img alt="Smiling patient face close up bright lighting" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="close-up of smiling woman with perfect teeth in soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkL9MS7N-q437VFM-DJA4Sdq4EHmdjuVXjfptx8wrXG_JQoNNLqdkjVKeeSUTg6XpS2GAN1U0Ezpk9UUl9l-Tq_ArQSoCU5tOF3KbIGJ1VSyhXkFAx3NBbsF1ix2evn4jTJ24MXO2pI7Gzm_Jwju8tbM1VtxA1ebwO2me-3OsGMlmoG_JENkME0tM6LJ393EtKiFDi22956cQurbdjGQjw2IzaHK5AEDs2SiUQuNmDxuxGYDmxI8BSnMO2BzDzCMGe-cdE8RNiAfBx"/>
+<img alt="Smiling male patient bright lighting" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="portrait of a happy young man with a healthy smile outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWaqe7HUEeu2VkdzAQesl46121i99BwMVfcS_cDpjSkwxKLKVAD_AOJUmXX7tn6uYk_Q9TMxuUYgO0BWjmVDm6PndNu9aAx2B0dhOz4SXN25JD-8PsdUCQ_XNeCDbjJ67wO5RCFyiI46qCBrBJij_XTDuU70qsBsGiCZOo-7v0V-MXIfS26TO10m0zC5m92nwTAh_AZHoQ68zY_8veU0uZvxZYmkMbPGbsvh5OZnKE1bCaow6zGClcA2Dc-WZaKk6O5nOU_Ak2WD1D"/>
+<img alt="Smiling female patient bright lighting" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="smiling mature woman showing healthy teeth in well-lit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy9XIz_7UvB8i1sN-0x23P39CS4PU8fJFa_rHV-4g0GklW6EXziw1V0IdUQSj5WilwVH2TK8BCYfujM6eOjmrnCl5GGSXV7Z-P5e3YeP1ZqggM6xEcIOKxMW4Fs7F-QEuQo9fHfCIZPdBU6me5KcbUoVZNxs3E3vZ2kROy2YA4fHuCkEN4UX65Q_Oju04a5S9Yy_OV7W4hUvhaelbDPFVyWWa0RR_7F7ViJxSAedkVaaXu_xPP_GZgZSHAPrn0gsrCi0dOjlsyOHYj"/>
+</div>
+<div class="text-sm text-on-surface-variant">
+<span class="font-semibold text-on-surface">500+</span> Pacientes Felices
+                        </div>
+</div>
+</div>
+<div class="relative hidden md:block">
+<div class="absolute inset-0 bg-primary-container/10 rounded-3xl blur-3xl transform rotate-3"></div>
+<img alt="Modern clean dental clinic interior with professional equipment" class="relative z-10 rounded-3xl shadow-2xl border-4 border-white object-cover h-[500px] w-full" data-alt="bright modern dental clinic interior with white chairs and soft blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpXT3dGA3ir-qIMdxf-wUqevj7UK9reusNZKa1Cj5kiEUEBr_Ce9ZmsKhjq_KexP2k079gCiTCFaJnZG3rqLpeLtzP9wSnZHzfuzl0D8rlvsr-3WSW3O3IaOXuYUVfSdbKrq8SqXJ_7hs3ZCmMXvi2m1fQfhmJIrIbFCrH8Mir9XHk8VAUoUiQlDSgV4OSBfxa3GrlHIyTXUceLzkBP3OwUUE82-qYkEV8JNLGjoQejjgi04zm4j-WonukHoaiik1rsc8f4M9Gr4Lz"/>
+<!-- Floating Card -->
+<div class="absolute -bottom-6 -left-6 z-20 bg-surface p-4 rounded-xl shadow-[0px_4px_20px_rgba(33,150,243,0.15)] flex items-center gap-4">
+<div class="bg-secondary-container/30 p-3 rounded-full text-secondary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Disponible Hoy</p>
+<p class="font-body-md text-xs text-on-surface-variant">3 espacios restantes</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- About / Why Us Bento Grid -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Por qué elegir Dentify</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Combinamos precisión clínica con cuidado empático para hacer que tus visitas dentales sean libres de estrés y altamente efectivas.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6">
+<!-- Bento Item 1 (Large) -->
+<div class="md:col-span-2 bg-surface rounded-2xl p-8 shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low flex flex-col justify-between hover:shadow-[0px_8px_30px_rgba(33,150,243,0.1)] transition-shadow">
+<div>
+<span class="material-symbols-outlined text-4xl text-primary-container mb-4">health_and_safety</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Tecnología Avanzada</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Nuestra clínica está equipada con las últimas herramientas de diagnóstico y tratamiento, asegurando resultados precisos y molestias mínimas en cada procedimiento.</p>
+</div>
+<img alt="High tech dental equipment" class="mt-8 rounded-xl h-48 w-full object-cover opacity-90" data-alt="close-up of advanced modern dental x-ray equipment in pristine white setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVxcMd92sXYHRLnLka7zMp8inTDGeBiLje1kPtpz-QbHGJYo-HW4FS0wlR1_egTGrNd1hDSsZ_bDJtTNWbjztT1Dgz7-Qzmc05T4RsRlsLwh3yQpCzfqjiHt9H1OwSityH9JmukrJx6uB1Udv1W2wf26jbEuzu22AKQaFEwbrzHyCq0gnWTyF8utVZMWT2JW1M5A5Mf4NnEahIK3AQ7zZMt8cAMn9tfTHWvYms3RawuZV3WM3KfsJoFaWvN0qqUU6ben4Zb5oii-Bj"/>
+</div>
+<!-- Bento Item 2 -->
+<div class="bg-primary-container rounded-2xl p-8 shadow-[0px_4px_20px_rgba(33,150,243,0.2)] text-white flex flex-col justify-between hover:-translate-y-1 transition-transform">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4 text-white/90">mood</span>
+<h3 class="font-h3 text-h3 mb-2">Sin Dolor</h3>
+<p class="font-body-md text-body-md text-white/80">Priorizamos tu comodidad con anestésicos modernos y técnicas suaves diseñadas para pacientes ansiosos.</p>
+</div>
+<button class="mt-8 bg-white text-primary-container font-label-sm text-label-sm px-4 py-2 rounded-lg w-full hover:bg-white/90 transition-colors">Conocer Más</button>
+</div>
+<!-- Bento Item 3 -->
+<div class="bg-surface rounded-2xl p-8 shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low hover:shadow-[0px_8px_30px_rgba(33,150,243,0.1)] transition-shadow">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-4">schedule</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Sin Esperas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Nuestro eficiente sistema de programación significa que te sientas en la silla exactamente cuando comienza tu cita.</p>
+</div>
+<!-- Bento Item 4 -->
+<div class="md:col-span-2 bg-surface rounded-2xl p-8 shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low flex items-center gap-8 hover:shadow-[0px_8px_30px_rgba(33,150,243,0.1)] transition-shadow">
+<div class="flex-1">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-4">diversity_1</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Equipo de Expertos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Nuestros especialistas tienen décadas de experiencia combinada en todas las disciplinas dentales.</p>
+</div>
+<div class="hidden sm:flex -space-x-4">
+<!-- Avatar group -->
+<img alt="Doctor 1" class="w-16 h-16 rounded-full border-4 border-surface object-cover" data-alt="professional portrait of male dentist in blue scrubs smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWzcnPGix3IAzisqWHW4E27K5iN8oKyH2HOHjPtDpQfTDiRegIAl6S0w0wnE7kVrVnVkhRpRAn-BZ4Lteem6CsIVw7qUBTJ9SBUri5ZWiuFcdfnucjDvXXO5fE_X1acWfXFbW_XiyPtRB2cNnfOOGdnxXLiM4LEybZH5xg3ZLNwMoCfBkEFhl5gyMcJm8HBAjs16f2X1ybHbsbaAQQ6AHf6yM13TWpb7Le-p14t7Le3kaXbHpJnG0idsdB2NExb13eLhyKeb7Qy21A"/>
+<img alt="Doctor 2" class="w-16 h-16 rounded-full border-4 border-surface object-cover" data-alt="professional portrait of female dentist looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzeRbYzVhBC7SG5ClpAKIziFdh25FVx5e3E9mLT-T3XVQZwsbV42DJ2ta35SwZM50TWsoVKa68MLnIjIFZiUI87VvXbcseJIjWYRaKGU-1PqWByOgkRwhg7ElkBTiE-KX0oFClKt4aaDP8oQKJLUjOnsY8GkPyp_5wdwuOy7vkgGlGe45Ap-sc8Rh7YU9oynmSCdbPFBiC1kBdDVgiveIvBNvArnTxcVI8m9B-NE_FUN9augBBNYoHIhY9NCIOL2g7uKJ6Be8K--X9"/>
+<img alt="Doctor 3" class="w-16 h-16 rounded-full border-4 border-surface object-cover" data-alt="professional portrait of mature male dentist in white coat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAff8qMcWAgLUa7jjtehrH5G4ZPuUnF73rcuooxmaQ49VffxYbG1KXJxp4k1NCvORUd4tVM5IDb0LMHq-0c_HSFB1_0aWfev3deObOZLALG4he6na5xttP5HWEnlSbJ2kZN4zw6HQHVbheXXRek8wFTnzHL6IWt63bI3LhUpXr4Did4Nu8IIlRE-DGJnr3ouxMndp2ui3ALIafDgUThE9mfLy6pS512vxFQApR6Wd3tebZWASMdYdP7oPTiqa8BA6cEddGMkGPgmdhD"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services -->
+<section class="py-24 bg-surface-bright">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-2xl">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Atención Integral</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Desde chequeos de rutina hasta restauraciones complejas, ofrecemos un espectro completo de servicios dentales bajo un mismo techo.</p>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline flex items-center gap-1">
+                        Ver Todos los Servicios <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Service 1 -->
+<div class="group bg-surface rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low hover:-translate-y-2 transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img alt="Dental Cleaning" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close up of pristine dental cleaning tools on a blue sterile tray" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_DkX2S9BNEmqDv--7O0xFpDfDsdvF7-qgCL1P11-4Ybz35j4hp9GPpyTYswurZmeAf86Fr4minEkOhvdP6u3yQNPBQUrmlz83jWPACm0ZLcxL6sLDAYG4u72BKNaZo4JVyDhQU9-WfYvE0TH5cIRCxqH7Uo3O3pNc21ypRQmH2ClV5awU0koVjXBPaGjsYl2l9gzCMc6YiX_vS-XwUA2kmqSCkCypSLQnsmmMeMVqEVCZ-ib4vp8yZV_91IdPx09eTzlHQ2df7yFH"/>
+</div>
+<div class="p-6">
+<div class="w-12 h-12 bg-primary-fixed/30 text-primary rounded-xl flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Limpieza Preventiva</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Remoción profesional de placa, raspado y pulido para mantener una salud oral óptima y prevenir problemas futuros.</p>
+<a class="text-primary font-label-sm text-label-sm group-hover:underline" href="#">Conocer más</a>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="group bg-surface rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low hover:-translate-y-2 transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img alt="Orthodontics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close up of modern clear aligners resting on a clean white surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLMrCvdeTC-ziCdr7YDoemNGh_QGPbBWExvrbOpNrmUbQTaltsAxwC7q4_r2xlCYObG454v4al0SwwWrPIbRHwHx2KiY-bjXE84gIKrs8GOGQkbUKVHGhkdtz3rRosCWASRwo-hyYrypmK8rPKLgy9sACJvn-QLDE_rM11oZReoghra2DpwVe_uRlhoF_roc1v9ob7gMZDGe0ybzwzixn3S6EEGcuj0ytTNV3zr5RCALSswAsZp6OzZFYX-PIZXzl7MoMIWjlYS8zE"/>
+</div>
+<div class="p-6">
+<div class="w-12 h-12 bg-primary-fixed/30 text-primary rounded-xl flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Ortodoncia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Alineadores transparentes y frenillos modernos para enderezar tus dientes de manera discreta y efectiva.</p>
+<a class="text-primary font-label-sm text-label-sm group-hover:underline" href="#">Conocer más</a>
+</div>
+</div>
+<!-- Service 3 -->
+<div class="group bg-surface rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low hover:-translate-y-2 transition-all duration-300">
+<div class="h-48 overflow-hidden">
+<img alt="Dental Implants" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="high quality rendering of a modern titanium dental implant structure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsxAxfb-_5vPc2kf3xbdVrVRrHo8RWrMEZFS_0g--_-CvHVCetbIUkj6Myzq27QVAd2O8g755K0Prvv2CVAnsubWJpo-JkZ-kiSVtIYsA6_XF_IUYTCwTy8USVf0ngQ2nFII6hBaGyIW7CWEgJYM51MsytsWcSG4Rwh8xhOY7T_OIgRLwx5XJOMA5Vw6URPsoxhQEdjEbAdlfN876bwsUZOZg5XxolOcuaTmqdsznP7j3UuJf8P6GcDjoiKH_WqqBVqfFALgHj-ZlT"/>
+</div>
+<div class="p-6">
+<div class="w-12 h-12 bg-primary-fixed/30 text-primary rounded-xl flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">view_in_ar</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Implantes Dentales</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Reemplazos permanentes y de aspecto natural para dientes perdidos que restauran la funcionalidad completa y la confianza.</p>
+<a class="text-primary font-label-sm text-label-sm group-hover:underline" href="#">Conocer más</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing -->
+<section class="py-24 bg-surface-container-lowest relative">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary-fixed/20 to-transparent z-0 pointer-events-none"></div>
+<div class="max-w-container-max mx-auto px-gutter relative z-10">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Precios Trasparentes</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Sin cargos ocultos. Solo costos claros y por adelantado para atención dental premium.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+<!-- Basic Tier -->
+<div class="bg-surface rounded-2xl p-8 border border-surface-container-low shadow-[0px_4px_20px_rgba(33,150,243,0.05)] flex flex-col">
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Esencial</h3>
+<p class="font-body-md text-sm text-on-surface-variant mb-6">Mantenimiento de rutina</p>
+<div class="mb-8">
+<span class="font-h1 text-4xl font-bold text-on-surface">$99</span>
+<span class="text-on-surface-variant">/visita</span>
+</div>
+<ul class="space-y-4 mb-8 flex-1">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Examen Completo
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Radiografías Digitales
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Limpieza Estándar
+                            </li>
+</ul>
+<button class="w-full bg-surface-container text-on-surface font-label-sm text-label-sm py-3 rounded-lg hover:bg-surface-container-high transition-colors">Seleccionar Plan</button>
+</div>
+<!-- Premium Tier (Highlighted) -->
+<div class="bg-primary-container rounded-2xl p-8 shadow-[0px_8px_30px_rgba(33,150,243,0.3)] flex flex-col relative transform md:-translate-y-4">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-container text-on-secondary-container font-label-sm text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                            Más Popular
+                        </div>
+<h3 class="font-h3 text-h3 text-white mb-2">Integral</h3>
+<p class="font-body-md text-sm text-white/80 mb-6">Atención avanzada y blanqueamiento</p>
+<div class="mb-8 text-white">
+<span class="font-h1 text-4xl font-bold">$249</span>
+<span class="text-white/80">/visita</span>
+</div>
+<ul class="space-y-4 mb-8 flex-1">
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span>
+                                Todo en Esencial
+                            </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span>
+                                Limpieza Profunda (Raspado)
+                            </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span>
+                                Blanqueamiento Profesional
+                            </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-container text-sm">check_circle</span>
+                                Tratamiento con Flúor
+                            </li>
+</ul>
+<button class="w-full bg-white text-primary-container font-label-sm text-label-sm py-3 rounded-lg hover:bg-white/90 shadow-md transition-colors">Reservar Cita</button>
+</div>
+<!-- Implant/Custom Tier -->
+<div class="bg-surface rounded-2xl p-8 border border-surface-container-low shadow-[0px_4px_20px_rgba(33,150,243,0.05)] flex flex-col">
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Restaurativo</h3>
+<p class="font-body-md text-sm text-on-surface-variant mb-6">Procedimientos mayores</p>
+<div class="mb-8">
+<span class="font-h1 text-4xl font-bold text-on-surface">Personalizado</span>
+</div>
+<ul class="space-y-4 mb-8 flex-1">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Implantes Dentales
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Coronas y Puentes
+                            </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Endodoncias
+                            </li>
+</ul>
+<button class="w-full bg-surface-container text-on-surface font-label-sm text-label-sm py-3 rounded-lg hover:bg-surface-container-high transition-colors">Consulta</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 bg-surface-bright">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Historias de Pacientes</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">No te quedes solo con nuestra palabra. Escucha a aquellos cuyas sonrisas hemos transformado.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<!-- Review 1 -->
+<div class="bg-surface p-8 rounded-2xl shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low relative">
+<span class="material-symbols-outlined absolute top-6 right-6 text-primary-fixed-dim text-4xl opacity-50">format_quote</span>
+<div class="flex items-center gap-1 mb-4 text-amber-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 italic">"Siempre he tenido una ansiedad severa por ir al dentista, pero el equipo de Dentify cambió eso por completo. Su enfoque empático y sus técnicas sin dolor son verdaderamente notables. ¡De hecho, ahora espero con ansias mis limpiezas!"</p>
+<div class="flex items-center gap-4">
+<img alt="Sarah Jenkins" class="w-12 h-12 rounded-full object-cover" data-alt="portrait of smiling middle-aged woman in natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC27L-6_kUIHMOLMFcMeUX9fpl7q0y51NxR2CVRSyOdOrVgOxjP96qRuZHVu8_MQigb3Mnc53BySdlbn10_dZzrRjBN2oGni2KhCNYDP0dgTsfedr1jclpHKr_ac9HUg64EPYkW6tfHnEinHcca0xe5WnRKdMXF4AsokyvcXIKME-8xE8tueZmLVmdIDJmtveDbdMlvpu58GCMd9PGY66RRDn60tz5oU0-SdhG3X2MpXuXd_R3iijH33o1QaxjZrXJ84-lqPdqCsS2p"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface font-semibold">Sarah Jenkins</h4>
+<p class="font-body-md text-xs text-on-surface-variant">Paciente de Atención Preventiva</p>
+</div>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface p-8 rounded-2xl shadow-[0px_4px_20px_rgba(33,150,243,0.05)] border border-surface-container-low relative">
+<span class="material-symbols-outlined absolute top-6 right-6 text-primary-fixed-dim text-4xl opacity-50">format_quote</span>
+<div class="flex items-center gap-1 mb-4 text-amber-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 italic">"Ponerse implantes fue una gran decisión, pero la tecnología y la experiencia aquí lo hicieron perfecto. Los precios transparentes significaron que no hubo sorpresas, y los resultados se ven increíblemente naturales. Recomiendo altamente Dentify."</p>
+<div class="flex items-center gap-4">
+<img alt="Michael Chen" class="w-12 h-12 rounded-full object-cover" data-alt="portrait of confident adult male with great smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7F6XQY0Cf3zCUmzD163c7X-IrOKjYgV03nWwo-cpaWr2HCFZHIY51C0JiAQ-3FlsgP-w9uGjVjEHFuD2DY-2M0jfm4fnIhP7TM15t8l_eNSG7GbV9Bxoq6jlp8Ve8qzeHnNCTeabXz6rxu9h1nIKYVqy6ZbbXsgdW4ZWqEnqymwH4iMdz1Aq7SzwJFYr8_xOwneWYRngJtNNhBj8l5y36tdfPMEQMs9MM32g2qMTSqoR8vOSK5M0D6JXZT3eUidxWJL8A8ehY3OGP"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface font-semibold">Michael Chen</h4>
+<p class="font-body-md text-xs text-on-surface-variant">Paciente de Implantes</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-100 bg-white">
+<div class="flex flex-col md:flex-row justify-between items-center py-8 px-6 max-w-[1200px] mx-auto gap-4">
+<div class="font-['Inter'] text-xs text-slate-500">
+                © 2024 Dentify. Atención Dental Profesional y Empática.
+            </div>
+<nav class="flex flex-wrap gap-6 justify-center">
+<a class="font-['Inter'] text-xs text-slate-400 hover:text-blue-500 transition-colors" href="#">Política de Privacidad</a>
+<a class="font-['Inter'] text-xs text-slate-400 hover:text-blue-500 transition-colors" href="#">Términos de Servicio</a>
+<a class="font-['Inter'] text-xs text-slate-400 hover:text-blue-500 transition-colors" href="#">Derechos del Paciente</a>
+<a class="font-['Inter'] text-xs text-slate-400 hover:text-blue-500 transition-colors" href="#">Carreras</a>
+</nav>
+</div>
+</footer>
+</body></html>
