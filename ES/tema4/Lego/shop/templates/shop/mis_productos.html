@@ -1,0 +1,133 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Mis Productos - Lego Reventa{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center mb-4">
+            <h2 style="font-family: 'Bungee', cursive;">MIS PRODUCTOS</h2>
+            <a href="{% url 'subir_producto' %}" class="btn-lego-red">+ PUBLICAR NUEVO</a>
+        </div>
+
+        <!-- SECCIÓN: EN VENTA -->
+        <div class="col-12 mb-5">
+            <div class="card shadow-sm" style="border: 4px solid var(--lego-black); border-radius: 0;">
+                <div class="card-header" style="background-color: var(--lego-yellow); border-bottom: 4px solid var(--lego-black);">
+                    <h4 class="mb-0 fw-bold" style="font-family: 'Bungee', cursive;">🏷️ EN VENTA ({{ en_venta.count }})</h4>
+                </div>
+                <div class="card-body bg-white p-0">
+                    {% if en_venta %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Estado</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in en_venta %}
+                                        <tr>
+                                            <td>
+                                                {% if p.imagen %}
+                                                    <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #000;">
+                                                {% else %}
+                                                    <div style="width:50px;height:50px;background:#eee;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#999;">SIN IMG</div>
+                                                {% endif %}
+                                            </td>
+                                            <td class="fw-bold">{{ p.nombre }}</td>
+                                            <td>{{ p.categoria.nombre }}</td>
+                                            <td><span class="badge bg-secondary" style="border-radius:0;">{{ p.get_estado_display }}</span></td>
+                                            <td class="text-danger fw-bold">{{ p.precio }}€</td>
+                                            <td>{{ p.cantidad }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center p-5">
+                            <p class="text-muted">No tienes productos a la venta en este momento.</p>
+                            <a href="{% url 'subir_producto' %}" class="btn-lego-red mt-2">Publicar ahora</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: VENDIDO -->
+        <div class="col-12">
+            <div class="card shadow-sm" style="border: 4px solid var(--lego-black); border-radius: 0;">
+                <div class="card-header" style="background-color: var(--lego-blue); border-bottom: 4px solid var(--lego-black); color: white;">
+                    <h4 class="mb-0 fw-bold" style="font-family: 'Bungee', cursive;">✅ VENDIDOS ({{ vendidos.count }})</h4>
+                </div>
+                <div class="card-body bg-white p-0">
+                    {% if vendidos %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Comprador</th>
+                                        <th>Email</th>
+                                        <th>Cantidad</th>
+                                        <th>Total</th>
+                                        <th>Estado Pedido</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in vendidos %}
+                                        <tr>
+                                            <td class="fw-bold">{{ item.product.nombre }}</td>
+                                            <td>
+                                                {{ item.order.user.get_full_name|default:item.order.user.username }}
+                                            </td>
+                                            <td>
+                                                <a href="mailto:{{ item.order.user.email }}">{{ item.order.user.email }}</a>
+                                            </td>
+                                            <td>{{ item.cantidad }}</td>
+                                            <td class="text-danger fw-bold">{{ item.subtotal }}€</td>
+                                            <td>
+                                                {% if item.order.estado == 'PREPARACION' %}
+                                                    <span class="badge bg-warning text-dark">En preparación</span>
+                                                {% elif item.order.estado == 'ENVIADO' %}
+                                                    <span class="badge bg-info text-dark">Enviado</span>
+                                                {% elif item.order.estado == 'ENTREGADO' %}
+                                                    <span class="badge bg-success">Entregado</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if item.order.estado == 'PREPARACION' %}
+                                                    <a href="{% url 'marcar_enviado' item.order.id %}"
+                                                       class="btn btn-sm btn-info text-dark fw-bold"
+                                                       style="border-radius:0; border: 2px solid #000;"
+                                                       onclick="return confirm('¿Marcar el pedido #{{ item.order.id }} como ENVIADO?')">
+                                                        📦 Marcar Enviado
+                                                    </a>
+                                                {% else %}
+                                                    <span class="text-muted" style="font-size: 0.85rem;">—</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center p-5">
+                            <p class="text-muted">Todavía no has vendido ningún producto.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

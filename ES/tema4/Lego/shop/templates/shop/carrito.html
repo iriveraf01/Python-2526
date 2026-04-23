@@ -1,0 +1,64 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Mi Carrito - Lego Reventa{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm" style="border: 4px solid var(--lego-black); border-radius: 0;">
+                <div class="card-header text-center" style="background-color: var(--lego-yellow); border-bottom: 4px solid var(--lego-black);">
+                    <h2 style="font-family: 'Bungee', cursive;">MI CARRITO</h2>
+                </div>
+                <div class="card-body p-4">
+                    {% if items %}
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    {% if item.producto.imagen %}
+                                                        <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px; border: 1px solid #000;">
+                                                    {% endif %}
+                                                    <span class="fw-bold">{{ item.producto.nombre }}</span>
+                                                </div>
+                                            </td>
+                                            <td>{{ item.producto.precio }}€</td>
+                                            <td>{{ item.cantidad }}</td>
+                                            <td class="fw-bold">{{ item.subtotal }}€</td>
+                                            <td>
+                                                <a href="{% url 'eliminar_del_carrito' item.producto.id %}" class="btn btn-sm btn-outline-danger" style="border-radius: 0;">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light" style="border: 2px solid var(--lego-black);">
+                            <h3 class="mb-0">TOTAL: <span class="text-danger fw-bold">{{ total }}€</span></h3>
+                            <a href="{% url 'checkout' %}" class="btn-lego-red">FINALIZAR COMPRA</a>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <h4>Tu carrito está vacío</h4>
+                            <p>¡Añade algunas piezas del catálogo para empezar!</p>
+                            <a href="{% url 'catalogo' %}" class="btn btn-lego-red mt-3">IR AL CATÁLOGO</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

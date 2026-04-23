@@ -1,78 +1,138 @@
 {% extends "shop/base.html" %}
 
+{% block title %}Mi Perfil - Lego Reventa{% endblock %}
+
 {% block content %}
 <div class="container mt-5 mb-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card shadow-sm" style="border: 4px solid var(--lego-black); border-radius: 0;">
-        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: var(--lego-yellow); border-bottom: 4px solid var(--lego-black);">
-          <h2 class="mb-0" style="font-family: 'Bungee', cursive;">MI PERFIL</h2>
-          <span class="badge {% if user.profile.es_vendedor %}text-bg-success{% else %}text-bg-secondary{% endif %}" style="border-radius:0;">
-            {% if user.profile.es_vendedor %}Vendedor{% else %}No vendedor{% endif %}
-          </span>
-        </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm" style="border: 4px solid var(--lego-black); border-radius: 0;">
+                <div class="card-header text-center" style="background-color: var(--lego-blue); border-bottom: 4px solid var(--lego-black); color: white;">
+                    <h2 style="font-family: 'Bungee', cursive;">MI PERFIL</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4 text-center">
+                        <h5>
+                            Estado actual: 
+                            {% if user.profile.es_vendedor %}
+                                <span class="badge bg-success p-2">Vendedor</span>
+                            {% else %}
+                                <span class="badge bg-secondary p-2">Comprador</span>
+                            {% endif %}
+                        </h5>
+                        {% if user.profile.solicita_vendedor and not user.profile.es_vendedor %}
+                            <div class="alert alert-warning mt-2 p-2" style="border-radius:0;">
+                                Tienes una <strong>solicitud para ser vendedor</strong> pendiente de aprobación.
+                            </div>
+                        {% endif %}
+                    </div>
 
-        <div class="card-body p-4">
-          <div class="mb-3">
-            <div><strong>Usuario:</strong> {{ user.username }}</div>
-            {% if user.profile.solicitud_vendedor and not user.profile.es_vendedor %}
-              <div class="mt-2 alert alert-warning p-2" style="border-radius:0;">
-                Tienes una <strong>solicitud para ser vendedor</strong> pendiente de aprobación.
-              </div>
-            {% endif %}
-          </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <h4 class="mb-3" style="border-bottom: 2px solid var(--lego-yellow); padding-bottom: 5px;">Datos de Usuario</h4>
+                            <div class="mb-3">
+                                <label class="fw-bold">Nombre de usuario</label>
+                                <input type="text" class="form-control" value="{{ user.username }}" disabled>
+                                <small class="text-muted">El nombre de usuario no se puede modificar.</small>
+                            </div>
+                            
+                            {% for field in user_form %}
+                                <div class="mb-3">
+                                    <label class="fw-bold">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <small class="text-danger">{{ field.errors|first }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
 
-          <form method="post">
-            {% csrf_token %}
+                        <div class="mb-4">
+                            <h4 class="mb-3 mt-4" style="border-bottom: 2px solid var(--lego-yellow); padding-bottom: 5px;">Datos Adicionales</h4>
+                            {% for field in profile_form %}
+                                {% if field.name == 'solicita_vendedor' %}
+                                    {% if not user.profile.es_vendedor %}
+                                        <div class="mb-3 form-check mt-3 p-3" style="background-color: #f8f9fa; border: 2px dashed var(--lego-blue);">
+                                            {{ field }}
+                                            <label class="form-check-label fw-bold" for="{{ field.id_for_label }}">
+                                                {{ field.label }}
+                                            </label>
+                                            <p class="text-muted mt-1 mb-0" style="font-size: 0.9rem;">Marca esta casilla si deseas solicitar permisos para vender tus piezas y sets de Lego. Un administrador deberá aprobar tu solicitud.</p>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="mb-3">
+                                        <label class="fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <small class="text-danger">{{ field.errors|first }}</small>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
 
-            <h5 class="mt-3 mb-2 fw-bold">Datos de cuenta</h5>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="fw-bold">{{ user_form.email.label }}</label>
-                {{ user_form.email }}
-                {% if user_form.email.errors %}<small class="text-danger">{{ user_form.email.errors|first }}</small>{% endif %}
-              </div>
-              <div class="col-md-6"></div>
-              <div class="col-md-6">
-                <label class="fw-bold">{{ user_form.first_name.label }}</label>
-                {{ user_form.first_name }}
-                {% if user_form.first_name.errors %}<small class="text-danger">{{ user_form.first_name.errors|first }}</small>{% endif %}
-              </div>
-              <div class="col-md-6">
-                <label class="fw-bold">{{ user_form.last_name.label }}</label>
-                {{ user_form.last_name }}
-                {% if user_form.last_name.errors %}<small class="text-danger">{{ user_form.last_name.errors|first }}</small>{% endif %}
-              </div>
+                        <button type="submit" class="btn-lego-red w-100 mt-2">GUARDAR CAMBIOS</button>
+                    </form>
+                </div>
             </div>
 
-            <h5 class="mt-4 mb-2 fw-bold">Datos de perfil</h5>
-            <div class="row g-3">
-              <div class="col-md-12">
-                <label class="fw-bold">{{ profile_form.nombre_completo.label }}</label>
-                {{ profile_form.nombre_completo }}
-                {% if profile_form.nombre_completo.errors %}<small class="text-danger">{{ profile_form.nombre_completo.errors|first }}</small>{% endif %}
-              </div>
-              <div class="col-md-12">
-                <label class="fw-bold">{{ profile_form.direccion.label }}</label>
-                {{ profile_form.direccion }}
-                {% if profile_form.direccion.errors %}<small class="text-danger">{{ profile_form.direccion.errors|first }}</small>{% endif %}
-              </div>
+            <!-- HISTORIAL DE PEDIDOS -->
+            <div class="card shadow-sm mt-5 mb-5" style="border: 4px solid var(--lego-black); border-radius: 0;">
+                <div class="card-header text-center" style="background-color: var(--lego-yellow); border-bottom: 4px solid var(--lego-black);">
+                    <h3 style="font-family: 'Bungee', cursive;">MIS PEDIDOS</h3>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    {% if pedidos %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Pedido #</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                        <th>Detalles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for pedido in pedidos %}
+                                        <tr>
+                                            <td class="fw-bold">#{{ pedido.id }}</td>
+                                            <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                                            <td class="text-danger fw-bold">{{ pedido.total }}€</td>
+                                            <td>
+                                                {% if pedido.estado == 'PREPARACION' %}
+                                                    <span class="badge bg-warning text-dark">En preparación</span>
+                                                {% elif pedido.estado == 'ENVIADO' %}
+                                                    <span class="badge bg-info text-dark">Enviado</span>
+                                                {% elif pedido.estado == 'ENTREGADO' %}
+                                                    <span class="badge bg-success">Entregado</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <ul class="list-unstyled mb-0" style="font-size: 0.85rem;">
+                                                    {% for item in pedido.items.all %}
+                                                        <li>{{ item.cantidad }}x {{ item.product.nombre }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <p class="text-muted mb-0">Todavía no has realizado ninguna compra.</p>
+                            <a href="{% url 'catalogo' %}" class="btn btn-outline-dark mt-2" style="border-radius: 0; border: 2px solid #000;">¡Ir a comprar!</a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-
-            {% if not user.profile.es_vendedor %}
-              <div class="form-check mt-4">
-                {{ profile_form.pedir_ser_vendedor }}
-                <label class="form-check-label" for="{{ profile_form.pedir_ser_vendedor.id_for_label }}">
-                  {{ profile_form.pedir_ser_vendedor.label }}
-                </label>
-              </div>
-            {% endif %}
-
-            <button type="submit" class="btn-lego-red w-100 mt-4">GUARDAR CAMBIOS</button>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 {% endblock %}

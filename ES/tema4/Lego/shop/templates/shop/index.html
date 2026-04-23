@@ -75,7 +75,7 @@
         <div class="col-md-7">
             <h1 class="hero-title">TU PRÓXIMO <br> GRAN SET</h1>
             <p class="lead mb-5 fs-3">Colecciona, monta y presume de las joyas que solo tú posees.</p>
-            <a href="#" class="btn btn-warning btn-lego btn-lg">Explorar el catálogo</a>
+            <a href="{% url 'catalogo' %}" class="btn btn-warning btn-lego btn-lg">Explorar el catálogo</a>
         </div>
     </div>
 </section>
@@ -113,9 +113,16 @@
         <p class="fs-4 mb-5 max-width-700 mx-auto fw-semibold">¡Únete al mercado!</p>
         
         {% if user.is_authenticated %}
-            <a href="#" class="btn btn-light btn-lego btn-lg fw-bold">Subir mis Sets</a>
+            {% if user.profile.es_vendedor %}
+                <a href="{% url 'subir_producto' %}" class="btn btn-light btn-lego btn-lg fw-bold">Subir mis Sets</a>
+            {% elif user.profile.solicita_vendedor %}
+                <p class="text-warning fw-bold fs-5">✅ Tu solicitud para ser vendedor está pendiente de aprobación.</p>
+            {% else %}
+                <p class="text-white fw-semibold fs-5 mb-3">¿Quieres vender tus piezas? Solicítalo en tu perfil.</p>
+                <a href="{% url 'perfil' %}" class="btn btn-light btn-lego btn-lg fw-bold">Ir a mi Perfil</a>
+            {% endif %}
         {% else %}
-            <a href="#" class="btn btn-light btn-lego btn-lg fw-bold">Regístrate para Vender</a>
+            <a href="{% url 'login' %}" class="btn btn-light btn-lego btn-lg fw-bold">Regístrate para Vender</a>
         {% endif %}
     </div>
 </section>
