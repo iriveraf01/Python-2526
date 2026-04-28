@@ -16,7 +16,7 @@ from flask import (
 from mysql.connector import Error
 
 sys.path.append("scripts")
-from conexion import cerrar_conexion, obtener_conexion
+from scripts.conexion import cerrar_conexion, obtener_conexion
 
 
 app = Flask(__name__, template_folder="html", static_folder=".")
