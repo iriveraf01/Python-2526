@@ -1,285 +1,248 @@
 <!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Dentify - Panel de Cliente</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary-container": "#2196f3",
-                        "surface-container-highest": "#e0e3e5",
-                        "primary": "#0061a4",
-                        "on-primary-fixed": "#001d36",
-                        "primary-fixed-dim": "#9ecaff",
-                        "tertiary-fixed-dim": "#bac9d3",
-                        "surface-bright": "#f7f9fb",
-                        "primary-fixed": "#d1e4ff",
-                        "secondary-container": "#91f78e",
-                        "surface-tint": "#0061a4",
-                        "on-primary-fixed-variant": "#00497d",
-                        "secondary-fixed-dim": "#78dc77",
-                        "on-surface": "#191c1e",
-                        "secondary-fixed": "#94f990",
-                        "tertiary": "#526069",
-                        "outline": "#707883",
-                        "outline-variant": "#bfc7d4",
-                        "on-error": "#ffffff",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-fixed-variant": "#3b4951",
-                        "on-background": "#191c1e",
-                        "inverse-on-surface": "#eff1f3",
-                        "inverse-primary": "#9ecaff",
-                        "secondary": "#006e1c",
-                        "surface-container": "#eceef0",
-                        "surface-container-high": "#e6e8ea",
-                        "on-tertiary": "#ffffff",
-                        "on-surface-variant": "#404752",
-                        "on-tertiary-fixed": "#0f1d25",
-                        "surface-container-low": "#f2f4f6",
-                        "on-secondary-fixed": "#002204",
-                        "inverse-surface": "#2d3133",
-                        "surface": "#f7f9fb",
-                        "on-primary-container": "#002c4f",
-                        "error-container": "#ffdad6",
-                        "on-error-container": "#93000a",
-                        "on-tertiary-container": "#1f2d35",
-                        "on-secondary-fixed-variant": "#005313",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#85949e",
-                        "surface-variant": "#e0e3e5",
-                        "on-secondary": "#ffffff",
-                        "on-secondary-container": "#00731e",
-                        "tertiary-fixed": "#d6e5ef",
-                        "background": "#f7f9fb",
-                        "surface-dim": "#d8dadc",
-                        "surface-container-lowest": "#ffffff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "base": "8px",
-                        "sm": "12px",
-                        "md": "24px",
-                        "xs": "4px",
-                        "xl": "80px",
-                        "gutter": "24px",
-                        "container-max": "1200px",
-                        "lg": "48px"
-                    },
-                    "fontFamily": {
-                        "body-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "h2": ["Inter"],
-                        "h3": ["Inter"],
-                        "h1": ["Inter"],
-                        "label-sm": ["Inter"]
-                    },
-                    "fontSize": {
-                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
-                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600" }],
-                        "h1": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "label-sm": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentify - Cliente</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>body{font-family:Inter,sans-serif}</style>
 </head>
-<body class="bg-background text-on-surface antialiased min-h-screen flex">
-<!-- Shared Component: SideNavBar -->
-<aside class="h-screen w-64 border-r fixed left-0 top-0 border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col p-4 gap-2 font-['Inter'] text-sm font-medium z-50 hidden md:flex flat no-shadows">
-<!-- Header -->
-<div class="mb-8 px-2 flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dentistry</span>
-</div>
-<div>
-<h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Dentify</h1>
-<p class="text-xs text-slate-500 font-normal">Excelencia Clínica</p>
-</div>
-</div>
-<!-- CTA -->
-<button class="w-full bg-primary text-on-primary rounded-lg py-3 px-4 mb-6 shadow-[0px_4px_20px_rgba(33,150,243,0.08)] font-label-sm text-label-sm hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
-<span class="material-symbols-outlined text-[18px]">add</span>
-            Nueva Cita
-        </button>
-<!-- Navigation Links -->
-<nav class="flex-1 flex flex-col gap-1">
-<!-- Active Tab: Dashboard -->
-<a class="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg shadow-sm flex items-center gap-3 px-3 py-2 opacity-80 scale-95 transition-all" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-                Panel
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+    <div class="flex min-h-screen">
+        <aside class="hidden md:flex w-64 bg-white border-r border-slate-200 p-5 flex-col fixed inset-y-0">
+            <a href="/" class="flex items-center gap-2 text-blue-700 font-black text-xl">
+                <span class="material-symbols-outlined">dentistry</span>
+                Dentify
             </a>
-<!-- Inactive Tabs -->
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">calendar_today</span>
-                Citas
-            </a>
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">person</span>
-                Pacientes
-            </a>
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">event_note</span>
-                Horario
-            </a>
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">settings</span>
-                Configuración
-            </a>
-</nav>
-<!-- Footer Tabs -->
-<div class="mt-auto border-t border-slate-200 pt-4 flex flex-col gap-1">
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">help</span>
-                Soporte
-            </a>
-<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 rounded-lg flex items-center gap-3 px-3 py-2" href="#">
-<span class="material-symbols-outlined">logout</span>
-                Cerrar Sesión
-            </a>
-</div>
-</aside>
-<!-- Main Canvas -->
-<main class="flex-1 md:ml-64 p-md md:p-lg w-full max-w-container-max mx-auto overflow-y-auto">
-<!-- Top Header Area -->
-<header class="flex justify-between items-end mb-lg">
-<div>
-<h2 class="font-h1 text-h1 text-on-surface">Hola, Michael</h2>
-<p class="font-body-md text-body-md text-on-surface-variant mt-2">Aquí tienes tu próxima agenda de cuidado dental.</p>
-</div>
-<div class="w-12 h-12 rounded-full overflow-hidden border border-surface-container-high shadow-sm">
-<img alt="Patient Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a smiling young man outdoors with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQDRvu2o6G3YzxtGR9yWN-uPGqMi-27d3bj6kaeOPsUY-FCWIZmmEvEJo7INqHLSocRRDzhOYOLOOn0bqxoILlShJnwmxBVlmoetJXlHNWOkR5gMqWYM-lLlIUGNRc88U-7ZYatxGV7oavF7gRE8kFW4Xvr_q1zFhFdCUh3FCbwHlUb1jIPcY_6B6jSBWGAFaKDZzho0zK5KXKSbYGxgPbvJxOX4V9RBSvA4PvZKOcl2DNIwAvyhakYgUejjiTpQwxGSlUcSqNVQVA"/>
-</div>
-</header>
-<!-- Bento Grid Dashboard -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-md">
-<!-- Hero Card: Next Appointment (Span 8) -->
-<div class="col-span-1 lg:col-span-8 bg-surface rounded-xl p-lg shadow-[0px_4px_20px_rgba(33,150,243,0.08)] relative overflow-hidden flex flex-col justify-between border border-surface-container-lowest">
-<!-- Decorative Blur Element -->
-<div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed opacity-40 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-<div class="relative z-10">
-<div class="flex items-center gap-3 mb-8">
-<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm rounded-full flex items-center gap-1 border border-secondary-container">
-<span class="material-symbols-outlined text-[16px]">check_circle</span> Confirmado
-                        </span>
-<span class="font-label-sm text-label-sm text-tertiary">Chequeo de Rutina y Limpieza</span>
-</div>
-<h3 class="font-h2 text-h2 text-on-surface mb-6">Tu Próxima Visita</h3>
-<div class="flex flex-wrap gap-xl">
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Fecha y Hora</p>
-<p class="font-body-lg text-body-lg text-on-surface flex items-center gap-2 font-medium">
-<span class="material-symbols-outlined text-primary">calendar_month</span> 
-                                Jueves, 24 de Oct • 10:30 AM
-                            </p>
-</div>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Doctor/a</p>
-<div class="flex items-center gap-3">
-<img alt="Dra. Emily Chen" class="w-8 h-8 rounded-full object-cover shadow-sm" data-alt="professional headshot of female dentist in white coat smiling warmly in clinic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeiRXYp_U00FEUS9d2YCQkEpVHpLQ3wkKOUNyb_d1l_l4WPlxVyrm54bbKBNrW9h0fQZBvnQb66q1lSrGUJ5w5HEy8ex4uT3sQmirRQ-39FcBRE83Xd6A1JMNCqRqdvKlDz-BkRoUykiy5RPtPtneKERXFvt0MMSxFOpo5SnaJKJWt8pXAm-y1QiSqCpgz8p0riCE51NaCtxbQ7RfyPFzMUlgLMGRzg4VjSjwpUv9IjvLer8RVGmUF9nv8TpShO8EFPO2soFxu6NdK"/>
-<p class="font-body-lg text-body-lg text-on-surface font-medium">Dra. Emily Chen</p>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-12 flex gap-4 relative z-10">
-<button class="bg-primary text-on-primary font-label-sm text-label-sm px-6 py-3 rounded-lg shadow-[0px_4px_20px_rgba(33,150,243,0.08)] hover:bg-surface-tint transition-colors">
-                        Reprogramar
-                    </button>
-<button class="bg-error-container text-on-error-container font-label-sm text-label-sm px-6 py-3 rounded-lg hover:bg-error hover:text-on-error transition-colors">
-                        Cancelar Cita
-                    </button>
-</div>
-</div>
-<!-- Quick Book Widget (Span 4) -->
-<div class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(33,150,243,0.08)] flex flex-col">
-<div class="flex justify-between items-center mb-6">
-<h3 class="font-h3 text-h3 text-on-surface">Reserva Rápida</h3>
-<span class="material-symbols-outlined text-outline">more_horiz</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Selecciona un horario disponible para un seguimiento o consulta.</p>
-<div class="flex-1 flex flex-col gap-4">
-<div>
-<div class="font-label-sm text-label-sm text-on-surface-variant mb-3 flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px]">today</span> Mañana, 12 de Oct
+            <nav class="mt-8 space-y-1 text-sm font-semibold">
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-700" href="/cliente.html">
+                    <span class="material-symbols-outlined text-lg">event_available</span> Mis citas
+                </a>
+                <button onclick="openHistoryModal()" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 text-left">
+                    <span class="material-symbols-outlined text-lg">history</span> Historial
+                </button>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="/logout">
+                    <span class="material-symbols-outlined text-lg">logout</span> Cerrar sesión
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 md:ml-64 p-6 md:p-10">
+            <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <p class="text-sm font-bold text-blue-700 uppercase tracking-wide">Paciente</p>
+                    <h1 class="text-4xl font-black tracking-tight">Hola, {{ usuario_nombre }}</h1>
+                    <p class="text-slate-600 mt-2">Reserva un hueco disponible y consulta tus próximas visitas.</p>
+                </div>
+                <button onclick="openHistoryModal()" class="inline-flex items-center justify-center gap-2 rounded-lg bg-white border border-slate-200 px-4 py-3 font-bold text-slate-700 hover:bg-slate-100">
+                    <span class="material-symbols-outlined text-lg">history</span> Ver historial
+                </button>
+            </header>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mt-6 space-y-2">
+                        {% for category, message in messages %}
+                            <div class="rounded-lg px-4 py-3 text-sm {% if category == 'success' %}bg-emerald-50 text-emerald-800 border border-emerald-200{% else %}bg-red-50 text-red-800 border border-red-200{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <section class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
+                <div class="xl:col-span-2 bg-white border border-slate-200 rounded-lg p-6">
+                    <div class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4 flex gap-3">
+                        <span class="material-symbols-outlined text-blue-700">new_releases</span>
+                        <div>
+                            <p class="font-black text-blue-900">Nuevo calendario de reserva</p>
+                            <p class="text-sm text-blue-800">Primero elige tratamiento y médico, después pulsa un día del mes y por último reserva una hora disponible.</p>
                         </div>
-<div class="grid grid-cols-2 gap-3">
-<div class="border-2 border-secondary text-secondary font-label-sm text-label-sm text-center py-2 rounded-lg cursor-pointer bg-secondary-fixed/20 transition-all hover:shadow-sm">09:00 AM</div>
-<div class="border border-surface-container-highest text-on-surface-variant font-label-sm text-label-sm text-center py-2 rounded-lg cursor-pointer hover:border-primary hover:text-primary transition-colors">11:30 AM</div>
-<div class="border border-surface-container-highest text-on-surface-variant font-label-sm text-label-sm text-center py-2 rounded-lg cursor-pointer hover:border-primary hover:text-primary transition-colors">02:00 PM</div>
-<div class="border border-surface-container-highest text-on-surface-variant font-label-sm text-label-sm text-center py-2 rounded-lg cursor-pointer hover:border-primary hover:text-primary transition-colors">04:15 PM</div>
-</div>
-</div>
-</div>
-<button class="w-full mt-6 bg-surface-container text-on-surface font-label-sm text-label-sm py-3 rounded-lg hover:bg-surface-container-high transition-colors flex justify-center items-center gap-2">
-                    Abrir Calendario Completo <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</button>
-</div>
-<!-- Future Procedures / History (Span 12) -->
-<div class="col-span-1 lg:col-span-12 mt-4">
-<div class="flex justify-between items-center mb-6">
-<h3 class="font-h3 text-h3 text-on-surface">Resumen del Plan de Tratamiento</h3>
-<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Ver Todo el Historial</a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
-<!-- Procedure Card 1 -->
-<div class="bg-surface rounded-xl p-md shadow-[0px_4px_20px_rgba(33,150,243,0.08)] border border-surface-container-lowest hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<div class="w-10 h-10 bg-primary-fixed rounded-lg text-primary flex items-center justify-center">
-<span class="material-symbols-outlined">cleaning_services</span>
-</div>
-<span class="text-tertiary font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded">Pendiente</span>
-</div>
-<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Limpieza Profunda</h4>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1">Visita al Higienista</p>
-<div class="mt-4 pt-4 border-t border-surface-container flex items-center gap-2 text-primary font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-[16px]">add_circle</span> Programar Ahora
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl font-black">Reservar cita</h2>
+                            <p class="text-slate-600 text-sm mt-1">Los huecos se calculan desde el horario real del médico y la duración del servicio.</p>
                         </div>
-</div>
-<!-- Procedure Card 2 -->
-<div class="bg-surface rounded-xl p-md shadow-[0px_4px_20px_rgba(33,150,243,0.08)] border border-surface-container-lowest hover:-translate-y-1 transition-transform duration-300 cursor-pointer opacity-70">
-<div class="flex justify-between items-start mb-4">
-<div class="w-10 h-10 bg-surface-container-high rounded-lg text-tertiary flex items-center justify-center">
-<span class="material-symbols-outlined">radiology</span>
-</div>
-<span class="text-secondary font-label-sm text-label-sm flex items-center gap-1">
-<span class="material-symbols-outlined text-[16px]">done</span> Completado
-                            </span>
-</div>
-<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Radiografía Panorámica</h4>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1">15 Sep, 2023</p>
-<div class="mt-4 pt-4 border-t border-surface-container flex items-center gap-2 text-outline font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-[16px]">description</span> Ver Resultados
+                        <span class="material-symbols-outlined text-blue-700">calendar_month</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-3 mt-6">
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-4">
+                            <p class="text-xs font-black text-blue-700 uppercase">Paso 1</p>
+                            <p class="font-black mt-1">Elige tratamiento</p>
                         </div>
-</div>
-<!-- Procedure Card 3 -->
-<div class="bg-surface rounded-xl p-md shadow-[0px_4px_20px_rgba(33,150,243,0.08)] border border-surface-container-lowest flex flex-col justify-center items-center text-center border-dashed border-2 hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="w-12 h-12 bg-surface-container rounded-full text-outline flex items-center justify-center mb-3">
-<span class="material-symbols-outlined text-[24px]">upload_file</span>
-</div>
-<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Subir Documentos</h4>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1 text-sm">Agregar registros dentales anteriores</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+                        <div class="rounded-lg bg-emerald-50 border border-emerald-100 p-4">
+                            <p class="text-xs font-black text-emerald-700 uppercase">Paso 2</p>
+                            <p class="font-black mt-1">Pulsa un día disponible</p>
+                        </div>
+                        <div class="rounded-lg bg-slate-100 border border-slate-200 p-4">
+                            <p class="text-xs font-black text-slate-600 uppercase">Paso 3</p>
+                            <p class="font-black mt-1">Reserva una hora</p>
+                        </div>
+                    </div>
+
+                    <form id="bookingFilters" action="/cliente.html" method="GET" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <input type="hidden" name="fecha" value="{{ fecha_seleccionada.isoformat() }}">
+                        <label>
+                            <span class="text-sm font-semibold text-slate-700">Servicio</span>
+                            <select onchange="document.getElementById('bookingFilters').submit()" class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" name="servicio_id">
+                                {% for servicio in servicios %}
+                                    <option value="{{ servicio.id }}" {% if servicio.id == servicio_id %}selected{% endif %}>{{ servicio.nombre }} · {{ servicio.duracion_minutos }} min · {{ servicio.precio|dinero }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                        <label>
+                            <span class="text-sm font-semibold text-slate-700">Médico</span>
+                            <select onchange="document.getElementById('bookingFilters').submit()" class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" name="medico_id">
+                                {% for medico in medicos %}
+                                    <option value="{{ medico.id }}" {% if medico.id == medico_id %}selected{% endif %}>{{ medico.nombre }} {{ medico.apellidos or '' }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </form>
+
+                    <div class="mt-6 rounded-lg border border-slate-200 overflow-hidden">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <div>
+                                <h3 class="text-xl font-black">{{ mes_label }}</h3>
+                                <p class="text-sm text-slate-600">
+                                    Servicio seleccionado: {{ servicio_seleccionado.nombre }} · {{ servicio_seleccionado.duracion_minutos }} minutos
+                                </p>
+                            </div>
+                            <div class="flex gap-2">
+                                <a class="rounded-lg bg-white border border-slate-200 px-3 py-2 font-bold text-slate-700 hover:bg-slate-100" href="/cliente.html?fecha={{ mes_anterior.isoformat() }}&servicio_id={{ servicio_id }}&medico_id={{ medico_id }}">
+                                    <span class="material-symbols-outlined text-base align-middle">chevron_left</span>
+                                </a>
+                                <a class="rounded-lg bg-white border border-slate-200 px-3 py-2 font-bold text-slate-700 hover:bg-slate-100" href="/cliente.html?fecha={{ mes_siguiente.isoformat() }}&servicio_id={{ servicio_id }}&medico_id={{ medico_id }}">
+                                    <span class="material-symbols-outlined text-base align-middle">chevron_right</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-7 bg-slate-100 text-center text-xs font-black text-slate-500 uppercase">
+                            <div class="py-2">Lun</div>
+                            <div class="py-2">Mar</div>
+                            <div class="py-2">Mié</div>
+                            <div class="py-2">Jue</div>
+                            <div class="py-2">Vie</div>
+                            <div class="py-2">Sáb</div>
+                            <div class="py-2">Dom</div>
+                        </div>
+                        <div class="grid grid-cols-7">
+                            {% for day in calendar_days %}
+                                {% if day.empty %}
+                                    <div class="min-h-24 border-t border-r border-slate-100 bg-slate-50"></div>
+                                {% else %}
+                                    <a href="/cliente.html?fecha={{ day.date.isoformat() }}&servicio_id={{ servicio_id }}&medico_id={{ medico_id }}"
+                                       class="min-h-24 border-t border-r border-slate-100 p-2 transition {% if day.selected %}bg-blue-50 ring-2 ring-inset ring-blue-600{% elif day.available > 0 %}bg-white hover:bg-emerald-50{% else %}bg-slate-50 text-slate-400{% endif %}">
+                                        <div class="flex h-full flex-col justify-between">
+                                            <span class="font-black">{{ day.day }}</span>
+                                            {% if day.available > 0 %}
+                                                <span class="rounded-full bg-emerald-100 text-emerald-800 px-2 py-1 text-[11px] font-black text-center">Disponible</span>
+                                                <span class="text-[11px] text-center font-bold text-emerald-700">{{ day.available }} horas</span>
+                                            {% elif day.past %}
+                                                <span class="text-[11px] font-bold text-slate-400 text-center">Pasado</span>
+                                            {% else %}
+                                                <span class="text-[11px] font-bold text-slate-400 text-center">Sin huecos</span>
+                                            {% endif %}
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                            <div>
+                                <h3 class="font-black text-lg">Horas disponibles para el {{ fecha_seleccionada|fecha }}</h3>
+                                <p class="text-sm text-slate-600">{{ servicio_seleccionado.nombre }} dura {{ servicio_seleccionado.duracion_minutos }} minutos; cada reserva bloquea ese tramo completo.</p>
+                            </div>
+                            <span class="rounded-full bg-white border border-blue-100 text-blue-700 px-3 py-1 text-sm font-black">{{ slots|length }} opciones</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                            {% for slot in slots %}
+                                <form action="/cliente/reservar" method="POST" class="border border-slate-200 rounded-lg p-4 hover:border-blue-300 hover:bg-blue-50 transition">
+                                    <input type="hidden" name="fecha" value="{{ fecha_seleccionada.isoformat() }}">
+                                    <input type="hidden" name="servicio_id" value="{{ servicio_id }}">
+                                    <input type="hidden" name="medico_id" value="{{ medico_id }}">
+                                    <input type="hidden" name="hora_inicio" value="{{ slot.inicio }}">
+                                    <p class="font-black text-2xl">{{ slot.inicio }}</p>
+                                    <p class="text-sm text-slate-600">Hasta {{ slot.fin }} · {{ servicio_seleccionado.duracion_minutos }} min</p>
+                                    <input class="mt-3 w-full rounded-lg border-slate-300 text-sm focus:border-blue-600 focus:ring-blue-600" name="motivo" placeholder="Motivo opcional">
+                                    <button class="mt-3 w-full bg-blue-700 text-white rounded-lg py-2 font-bold hover:bg-blue-800" type="submit">Reservar</button>
+                                </form>
+                            {% else %}
+                                <p class="md:col-span-3 text-center text-slate-500 border border-dashed border-slate-300 rounded-lg p-8">No hay huecos disponibles para esa fecha y servicio.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <div class="p-5 border-b border-slate-200">
+                        <h2 class="text-2xl font-black">Próximas citas</h2>
+                        <p class="text-slate-600 text-sm">Puedes cancelar una cita pendiente o aceptada.</p>
+                    </div>
+                    <div class="p-4 space-y-4">
+                        {% for cita in proximas %}
+                            <article class="border border-slate-200 rounded-lg p-4">
+                                <div class="flex justify-between gap-3">
+                                    <div>
+                                        <h3 class="font-black">{{ cita.servicio_nombre }}</h3>
+                                        <p class="text-sm text-slate-600">{{ cita.fecha|fecha }} · {{ cita.hora_inicio|hora }} - {{ cita.hora_fin|hora }}</p>
+                                        <p class="text-sm text-slate-600">Dr/a. {{ cita.medico_nombre }} {{ cita.medico_apellidos or '' }}</p>
+                                    </div>
+                                    <span class="h-fit px-2 py-1 rounded-full text-xs font-black {% if cita.estado == 'ACEPTADA' %}bg-emerald-100 text-emerald-800{% else %}bg-amber-100 text-amber-800{% endif %}">{{ cita.estado }}</span>
+                                </div>
+                                <form action="/cliente/citas/{{ cita.id }}/cancelar" method="POST" class="mt-4">
+                                    <button class="w-full rounded-lg bg-red-50 text-red-700 py-2 font-bold hover:bg-red-100" type="submit">Cancelar cita</button>
+                                </form>
+                            </article>
+                        {% else %}
+                            <p class="text-center text-slate-500 py-8">No tienes citas futuras.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="historyModal" class="fixed inset-0 bg-slate-900/60 z-50 hidden items-center justify-center p-4">
+        <section class="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[85vh] flex flex-col">
+            <header class="p-5 border-b border-slate-200 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-black">Historial de citas</h2>
+                    <p class="text-sm text-slate-600">Todas tus reservas registradas en Dentify.</p>
+                </div>
+                <button onclick="closeHistoryModal()" class="p-2 rounded-lg hover:bg-slate-100">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </header>
+            <div class="p-5 overflow-y-auto space-y-3">
+                {% for cita in historial %}
+                    <article class="border border-slate-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div>
+                            <h3 class="font-black">{{ cita.servicio_nombre }}</h3>
+                            <p class="text-sm text-slate-600">{{ cita.fecha|fecha }} · {{ cita.hora_inicio|hora }} · Dr/a. {{ cita.medico_nombre }} {{ cita.medico_apellidos or '' }}</p>
+                            {% if cita.notas_medico %}
+                                <p class="text-sm text-slate-700 mt-2">Notas: {{ cita.notas_medico }}</p>
+                            {% endif %}
+                        </div>
+                        <span class="px-2 py-1 rounded-full text-xs font-black bg-slate-100 text-slate-700">{{ cita.estado }}</span>
+                    </article>
+                {% else %}
+                    <p class="text-center text-slate-500 py-8">Todavía no tienes historial de citas.</p>
+                {% endfor %}
+            </div>
+            <footer class="p-5 border-t border-slate-200 text-right">
+                <button onclick="closeHistoryModal()" class="rounded-lg bg-slate-900 text-white px-5 py-2 font-bold">Cerrar</button>
+            </footer>
+        </section>
+    </div>
+    <script src="/js/miscript.js"></script>
+</body>
+</html>

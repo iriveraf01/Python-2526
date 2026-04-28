@@ -1,228 +1,71 @@
 <!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Dentify - Registration</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary-container": "#2196f3",
-                    "surface-container-highest": "#e0e3e5",
-                    "primary": "#0061a4",
-                    "on-primary-fixed": "#001d36",
-                    "primary-fixed-dim": "#9ecaff",
-                    "tertiary-fixed-dim": "#bac9d3",
-                    "surface-bright": "#f7f9fb",
-                    "primary-fixed": "#d1e4ff",
-                    "secondary-container": "#91f78e",
-                    "surface-tint": "#0061a4",
-                    "on-primary-fixed-variant": "#00497d",
-                    "secondary-fixed-dim": "#78dc77",
-                    "on-surface": "#191c1e",
-                    "secondary-fixed": "#94f990",
-                    "tertiary": "#526069",
-                    "outline": "#707883",
-                    "outline-variant": "#bfc7d4",
-                    "on-error": "#ffffff",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-fixed-variant": "#3b4951",
-                    "on-background": "#191c1e",
-                    "inverse-on-surface": "#eff1f3",
-                    "inverse-primary": "#9ecaff",
-                    "secondary": "#006e1c",
-                    "surface-container": "#eceef0",
-                    "surface-container-high": "#e6e8ea",
-                    "on-tertiary": "#ffffff",
-                    "on-surface-variant": "#404752",
-                    "on-tertiary-fixed": "#0f1d25",
-                    "surface-container-low": "#f2f4f6",
-                    "on-secondary-fixed": "#002204",
-                    "inverse-surface": "#2d3133",
-                    "surface": "#f7f9fb",
-                    "on-primary-container": "#002c4f",
-                    "error-container": "#ffdad6",
-                    "on-error-container": "#93000a",
-                    "on-tertiary-container": "#1f2d35",
-                    "on-secondary-fixed-variant": "#005313",
-                    "error": "#ba1a1a",
-                    "tertiary-container": "#85949e",
-                    "surface-variant": "#e0e3e5",
-                    "on-secondary": "#ffffff",
-                    "on-secondary-container": "#00731e",
-                    "tertiary-fixed": "#d6e5ef",
-                    "background": "#f7f9fb",
-                    "surface-dim": "#d8dadc",
-                    "surface-container-lowest": "#ffffff"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "base": "8px",
-                    "sm": "12px",
-                    "md": "24px",
-                    "xs": "4px",
-                    "xl": "80px",
-                    "gutter": "24px",
-                    "container-max": "1200px",
-                    "lg": "48px"
-            },
-            "fontFamily": {
-                    "body-md": [
-                            "Inter"
-                    ],
-                    "body-lg": [
-                            "Inter"
-                    ],
-                    "h2": [
-                            "Inter"
-                    ],
-                    "h3": [
-                            "Inter"
-                    ],
-                    "h1": [
-                            "Inter"
-                    ],
-                    "label-sm": [
-                            "Inter"
-                    ]
-            },
-            "fontSize": {
-                    "body-md": [
-                            "16px",
-                            {
-                                    "lineHeight": "1.5",
-                                    "letterSpacing": "0",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "body-lg": [
-                            "18px",
-                            {
-                                    "lineHeight": "1.6",
-                                    "letterSpacing": "0",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "h2": [
-                            "32px",
-                            {
-                                    "lineHeight": "1.3",
-                                    "letterSpacing": "-0.01em",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "h3": [
-                            "24px",
-                            {
-                                    "lineHeight": "1.4",
-                                    "letterSpacing": "0",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "h1": [
-                            "40px",
-                            {
-                                    "lineHeight": "1.2",
-                                    "letterSpacing": "-0.02em",
-                                    "fontWeight": "700"
-                            }
-                    ],
-                    "label-sm": [
-                            "14px",
-                            {
-                                    "lineHeight": "1.2",
-                                    "letterSpacing": "0.02em",
-                                    "fontWeight": "500"
-                            }
-                    ]
-            }
-          }
-        }
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        /* Custom input glow derived from primary color for focus state */
-        .input-glow:focus {
-            box-shadow: 0 0 12px rgba(0, 97, 164, 0.15);
-        }
-    </style>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentify - Registro</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>body{font-family:Inter,sans-serif}</style>
 </head>
-<body class="bg-surface min-h-screen flex items-center justify-center p-md font-body-md text-on-surface antialiased">
-<!-- 
-      Navigation Shell Suppressed:
-      As per the "Semantic Shell Mandate", transactional/linear screens like Sign-up 
-      must suppress the TopAppBar, SideNav, and Footer to prioritize the focused journey canvas.
-    -->
-<main class="w-full max-w-[480px]">
-<!-- Registration Card -->
-<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(33,150,243,0.08)] p-lg flex flex-col gap-md border border-surface-container-highest">
-<!-- Header Section -->
-<div class="flex flex-col items-center text-center gap-xs">
-<div class="flex items-center justify-center w-12 h-12 bg-primary-fixed rounded-full mb-2 text-primary">
-<span class="material-symbols-outlined text-[28px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dentistry</span>
-</div>
-<h1 class="font-h3 text-h3 text-on-surface">Dentify</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Crea tu cuenta para recibir atención profesional.</p>
-</div>
-<!-- Registration Form -->
-<form class="flex flex-col gap-md mt-2">
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="name">Nombre</label>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-3 text-on-surface-variant pointer-events-none text-[20px]">person</span>
-<input class="w-full bg-surface-container border-none rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary input-glow" id="name" name="name" placeholder="John Doe" type="text"/>
-</div>
-</div>
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Correo electrónico</label>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-3 text-on-surface-variant pointer-events-none text-[20px]">mail</span>
-<input class="w-full bg-surface-container border-none rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary input-glow" id="email" name="email" placeholder="john@example.com" type="email"/>
-</div>
-</div>
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="password">Contraseña</label>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-3 text-on-surface-variant pointer-events-none text-[20px]">lock</span>
-<input class="w-full bg-surface-container border-none rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary input-glow" id="password" name="password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<div class="flex flex-col gap-xs">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="confirm_password">Confirmar Contraseña</label>
-<div class="relative flex items-center">
-<span class="material-symbols-outlined absolute left-3 text-on-surface-variant pointer-events-none text-[20px]">lock_reset</span>
-<input class="w-full bg-surface-container border-none rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary input-glow" id="confirm_password" name="confirm_password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<button class="w-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold rounded-lg py-3 mt-2 shadow-[0px_4px_12px_rgba(33,150,243,0.2)] hover:bg-on-primary-fixed-variant transition-colors duration-200 flex items-center justify-center gap-2" type="button">
-                    Crear Cuenta
-                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</button>
-</form>
-<!-- Footer Links -->
-<div class="mt-4 text-center">
-<p class="font-body-md text-body-md text-on-surface-variant">
-                    ¿Ya tienes una cuenta? 
-                    <a class="text-primary font-medium hover:text-on-primary-fixed-variant hover:underline transition-colors duration-200" href="#">Inicia sesión</a>
-</p>
-</div>
-</div>
-</main>
-</body></html>
+<body class="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6">
+    <main class="w-full max-w-xl">
+        <a href="/" class="inline-flex items-center gap-2 text-blue-700 font-bold mb-6">
+            <span class="material-symbols-outlined">dentistry</span>
+            Dentify
+        </a>
+        <section class="bg-white border border-slate-200 rounded-lg shadow-sm p-8">
+            <h1 class="text-3xl font-black tracking-tight">Crear cuenta de cliente</h1>
+            <p class="text-slate-600 mt-2">Regístrate para solicitar citas y consultar tu historial.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mt-6 space-y-2">
+                        {% for category, message in messages %}
+                            <div class="rounded-lg px-4 py-3 text-sm {% if category == 'success' %}bg-emerald-50 text-emerald-800 border border-emerald-200{% else %}bg-red-50 text-red-800 border border-red-200{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/registro.html" method="POST" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                <label class="block">
+                    <span class="text-sm font-semibold text-slate-700">Nombre</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="name" name="name" type="text" placeholder="Laura" required>
+                </label>
+                <label class="block">
+                    <span class="text-sm font-semibold text-slate-700">Apellidos</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="apellidos" name="apellidos" type="text" placeholder="García">
+                </label>
+                <label class="block md:col-span-2">
+                    <span class="text-sm font-semibold text-slate-700">Correo electrónico</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="email" name="email" type="email" placeholder="laura@email.com" required>
+                </label>
+                <label class="block md:col-span-2">
+                    <span class="text-sm font-semibold text-slate-700">Teléfono</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="telefono" name="telefono" type="tel" placeholder="600000000">
+                </label>
+                <label class="block">
+                    <span class="text-sm font-semibold text-slate-700">Contraseña</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="password" name="password" type="password" placeholder="********" required>
+                </label>
+                <label class="block">
+                    <span class="text-sm font-semibold text-slate-700">Confirmar contraseña</span>
+                    <input class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600" id="confirm_password" name="confirm_password" type="password" placeholder="********" required>
+                </label>
+                <button class="md:col-span-2 bg-blue-700 text-white rounded-lg py-3 font-bold hover:bg-blue-800 transition flex items-center justify-center gap-2" type="submit">
+                    Crear cuenta
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </button>
+            </form>
+        </section>
+        <p class="text-center text-slate-600 mt-6">
+            ¿Ya tienes una cuenta?
+            <a href="/login.html" class="text-blue-700 font-semibold hover:underline">Inicia sesión</a>
+        </p>
+    </main>
+</body>
+</html>
