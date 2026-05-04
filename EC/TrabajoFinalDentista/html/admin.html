@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <style>body{font-family:Inter,sans-serif}</style>
+    <style>html{scroll-behavior:smooth}body{font-family:Inter,sans-serif}</style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen">
     <div class="flex min-h-screen">
@@ -19,6 +19,18 @@
             <nav class="mt-8 space-y-1 text-sm font-semibold">
                 <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-700" href="/admin.html">
                     <span class="material-symbols-outlined text-lg">dashboard</span> Panel
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#pacientes">
+                    <span class="material-symbols-outlined text-lg">clinical_notes</span> Pacientes
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#caja">
+                    <span class="material-symbols-outlined text-lg">payments</span> Caja
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#calendario">
+                    <span class="material-symbols-outlined text-lg">calendar_month</span> Calendario
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#solicitudes">
+                    <span class="material-symbols-outlined text-lg">pending_actions</span> Solicitudes
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="/logout">
                     <span class="material-symbols-outlined text-lg">logout</span> Cerrar sesión
@@ -69,7 +81,102 @@
                 </div>
             </section>
 
-            <section class="mt-8 bg-white border border-slate-200 rounded-lg overflow-hidden">
+            <section id="pacientes" class="scroll-mt-6 mt-8 bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div class="p-5 border-b border-slate-200 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-black">Pacientes e historiales</h2>
+                        <p class="text-slate-600 text-sm">Busca cualquier paciente y despliega su historial clínico.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <label class="relative block">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                            <input id="adminPatientSearch" class="w-full sm:w-80 rounded-lg border-slate-300 pl-10 focus:border-blue-600 focus:ring-blue-600" type="search" placeholder="Buscar paciente, email o teléfono">
+                        </label>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-800 px-3 py-2 text-sm font-black">
+                            <span class="material-symbols-outlined text-base">groups</span>
+                            {{ pacientes_admin|length }} pacientes
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-5 grid grid-cols-1 2xl:grid-cols-2 gap-4" id="adminPatientsList">
+                    {% for paciente in pacientes_admin %}
+                        {% set historial_paciente = historiales_admin.get(paciente.id, []) %}
+                        <article
+                            class="adminPatientCard rounded-lg border border-slate-200 bg-slate-50 overflow-hidden"
+                            data-patient="{{ (paciente.nombre ~ ' ' ~ (paciente.apellidos or '') ~ ' ' ~ paciente.email ~ ' ' ~ (paciente.telefono or ''))|lower }}"
+                        >
+                            <details {% if loop.first %}open{% endif %}>
+                                <summary class="cursor-pointer list-none p-4 bg-white hover:bg-blue-50">
+                                    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-blue-700">account_circle</span>
+                                                <h3 class="text-xl font-black">{{ paciente.nombre }} {{ paciente.apellidos or '' }}</h3>
+                                            </div>
+                                            <p class="text-sm text-slate-600 mt-1">
+                                                {{ paciente.email }}{% if paciente.telefono %} · {{ paciente.telefono }}{% endif %}
+                                            </p>
+                                            {% if paciente.observaciones %}
+                                                <p class="text-sm text-slate-700 mt-2"><span class="font-bold">Observaciones:</span> {{ paciente.observaciones }}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="rounded-full bg-slate-100 text-slate-700 px-2 py-1 text-xs font-black">{{ paciente.total_citas or 0 }} citas</span>
+                                            <span class="rounded-full bg-emerald-100 text-emerald-800 px-2 py-1 text-xs font-black">{{ paciente.completadas or 0 }} completadas</span>
+                                            <span class="rounded-full bg-blue-100 text-blue-800 px-2 py-1 text-xs font-black">{{ historial_paciente|length }} historial</span>
+                                        </div>
+                                    </div>
+                                </summary>
+
+                                <div class="p-4 border-t border-slate-200">
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">Última cita</p>
+                                            <p class="font-black mt-1">{% if paciente.ultima_cita %}{{ paciente.ultima_cita|fecha }}{% else %}Sin citas{% endif %}</p>
+                                        </div>
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">No asistió</p>
+                                            <p class="font-black mt-1 text-red-600">{{ paciente.no_asistio or 0 }}</p>
+                                        </div>
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">Registros</p>
+                                            <p class="font-black mt-1 text-blue-700">{{ historial_paciente|length }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        {% for item in historial_paciente %}
+                                            <article class="rounded-lg bg-white border border-slate-200 p-4">
+                                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                                                    <div>
+                                                        <p class="text-xs text-slate-500">{{ item.fecha|fecha }} · {{ item.medico_nombre }} {{ item.medico_apellidos or '' }}</p>
+                                                        <p class="font-black mt-1">{{ item.descripcion }}</p>
+                                                    </div>
+                                                    <span class="inline-flex self-start rounded-full bg-slate-100 text-slate-700 px-2 py-1 text-xs font-black">Historial</span>
+                                                </div>
+                                                {% if item.tratamiento %}
+                                                    <p class="text-sm text-slate-700 mt-3">{{ item.tratamiento }}</p>
+                                                {% endif %}
+                                            </article>
+                                        {% else %}
+                                            <div class="rounded-lg bg-white border border-dashed border-slate-300 p-5 text-center">
+                                                <span class="material-symbols-outlined text-slate-400">history</span>
+                                                <p class="text-sm text-slate-500 mt-1">Sin historial médico registrado.</p>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    {% else %}
+                        <p class="text-center text-slate-500 py-8 2xl:col-span-2">Todavía no hay pacientes registrados.</p>
+                    {% endfor %}
+                    <p id="adminPatientsEmpty" class="hidden text-center text-slate-500 py-8 2xl:col-span-2">No hay pacientes que coincidan con la búsqueda.</p>
+                </div>
+            </section>
+
+            <section id="caja" class="scroll-mt-6 mt-8 bg-white border border-slate-200 rounded-lg overflow-hidden">
                 <div class="p-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                     <div>
                         <h2 class="text-2xl font-black">Caja de reservas</h2>
@@ -151,7 +258,7 @@
             </section>
 
             <section class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
-                <div class="xl:col-span-2 bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div id="calendario" class="scroll-mt-6 xl:col-span-2 bg-white border border-slate-200 rounded-lg overflow-hidden">
                     <div class="p-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
                             <h2 class="text-2xl font-black">Calendario</h2>
@@ -197,7 +304,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div id="solicitudes" class="scroll-mt-6 bg-white border border-slate-200 rounded-lg overflow-hidden">
                     <div class="p-5 border-b border-slate-200 flex items-center justify-between">
                         <h2 class="text-2xl font-black">Solicitudes</h2>
                         <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-black">{{ pendientes|length }}</span>
@@ -231,5 +338,27 @@
             </section>
         </main>
     </div>
+    <script>
+        const adminPatientSearch = document.getElementById('adminPatientSearch');
+        const adminPatientCards = document.querySelectorAll('.adminPatientCard');
+        const adminPatientsEmpty = document.getElementById('adminPatientsEmpty');
+
+        if (adminPatientSearch) {
+            adminPatientSearch.addEventListener('input', () => {
+                const query = adminPatientSearch.value.trim().toLowerCase();
+                let visible = 0;
+
+                adminPatientCards.forEach((card) => {
+                    const matches = card.dataset.patient.includes(query);
+                    card.classList.toggle('hidden', !matches);
+                    if (matches) {
+                        visible += 1;
+                    }
+                });
+
+                adminPatientsEmpty.classList.toggle('hidden', visible !== 0);
+            });
+        }
+    </script>
 </body>
 </html>

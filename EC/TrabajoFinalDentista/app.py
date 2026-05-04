@@ -1,11 +1,18 @@
 from calendar import monthrange
+import csv
 from datetime import date, datetime, time, timedelta
+import io
+import json
+import os
 import sys
 from functools import wraps
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from flask import (
     Flask,
     flash,
+    jsonify,
     redirect,
     render_template,
     request,
@@ -19,8 +26,29 @@ sys.path.append("scripts")
 from scripts.conexion import cerrar_conexion, obtener_conexion
 
 
+def load_local_env(path=".env"):
+    env_path = path if os.path.isabs(path) else os.path.join(os.path.dirname(__file__), path)
+    if not os.path.exists(env_path):
+        return
+
+    with open(env_path, encoding="utf-8") as env_file:
+        for line in env_file:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            os.environ.setdefault(key, value)
+
+
+load_local_env()
+
 app = Flask(__name__, template_folder="html", static_folder=".")
 app.secret_key = "super_secret_dentify_key"
+
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
+MAX_GEMINI_CONTEXT_CHARS = 24000
 
 DIAS_SEMANA = {
     0: "LUNES",
@@ -167,6 +195,247 @@ def add_months(value, amount):
     year = value.year + month_index // 12
     month = month_index % 12 + 1
     return date(year, month, 1)
+
+
+def format_for_csv(value):
+    if value is None:
+        return ""
+    if isinstance(value, datetime):
+        return value.strftime("%Y-%m-%d %H:%M")
+    if isinstance(value, date):
+        return value.isoformat()
+    if isinstance(value, time):
+        return value.strftime("%H:%M")
+    if isinstance(value, timedelta):
+        return hora_filter(value)
+    return str(value)
+
+
+def build_rows_csv(rows):
+    output = io.StringIO()
+    writer = csv.DictWriter(
+        output,
+        fieldnames=[
+            "tipo",
+            "id",
+            "fecha",
+            "hora",
+            "paciente",
+            "email",
+            "telefono",
+            "servicio",
+            "estado",
+            "motivo",
+            "descripcion",
+            "tratamiento",
+            "medico",
+            "observaciones",
+        ],
+    )
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({key: format_for_csv(row.get(key)) for key in writer.fieldnames})
+    return output.getvalue().strip()
+
+
+def get_doctor_chat_patients(medico_id):
+    return fetch_all(
+        "SELECT p.id, u.nombre, u.apellidos, MAX(c.fecha) AS ultima_fecha, COUNT(c.id) AS total_citas "
+        "FROM citas c "
+        "JOIN pacientes p ON p.id = c.paciente_id "
+        "JOIN usuarios u ON u.id = p.usuario_id "
+        "WHERE c.medico_id = %s "
+        "GROUP BY p.id, u.nombre, u.apellidos "
+        "ORDER BY ultima_fecha DESC, u.nombre ASC",
+        (medico_id,),
+    )
+
+
+def build_doctor_context_csv(medico_id, paciente_id=None, fecha_agenda=None):
+    rows = []
+
+    if paciente_id:
+        access = fetch_one(
+            "SELECT COUNT(*) AS total FROM citas WHERE medico_id = %s AND paciente_id = %s",
+            (medico_id, paciente_id),
+        )
+        if not access or access["total"] == 0:
+            raise ValueError("Ese paciente no pertenece a tu agenda.")
+
+        paciente = fetch_one(
+            "SELECT p.id, p.observaciones, u.nombre, u.apellidos, u.email, u.telefono "
+            "FROM pacientes p JOIN usuarios u ON u.id = p.usuario_id "
+            "WHERE p.id = %s",
+            (paciente_id,),
+        )
+        if not paciente:
+            raise ValueError("No se encontró el paciente seleccionado.")
+
+        paciente_nombre = format_nombre(paciente["nombre"], paciente["apellidos"])
+        rows.append(
+            {
+                "tipo": "paciente",
+                "id": paciente["id"],
+                "paciente": paciente_nombre,
+                "email": paciente["email"],
+                "telefono": paciente["telefono"],
+                "observaciones": paciente["observaciones"],
+            }
+        )
+
+        citas = fetch_all(
+            appointment_query(
+                "WHERE c.medico_id = %s AND c.paciente_id = %s",
+                "c.fecha DESC, c.hora_inicio DESC",
+            ),
+            (medico_id, paciente_id),
+        )
+        for cita in citas:
+            rows.append(
+                {
+                    "tipo": "cita",
+                    "id": cita["id"],
+                    "fecha": cita["fecha"],
+                    "hora": cita["hora_inicio"],
+                    "paciente": paciente_nombre,
+                    "email": cita["paciente_email"],
+                    "telefono": cita["paciente_telefono"],
+                    "servicio": cita["servicio_nombre"],
+                    "estado": cita["estado"],
+                    "motivo": cita["motivo"],
+                    "tratamiento": cita["notas_medico"],
+                    "medico": format_nombre(cita["medico_nombre"], cita["medico_apellidos"]),
+                }
+            )
+
+        historial = fetch_all(
+            "SELECT h.*, u.nombre AS medico_nombre, u.apellidos AS medico_apellidos "
+            "FROM historial_pacientes h "
+            "JOIN medicos m ON m.id = h.medico_id "
+            "JOIN usuarios u ON u.id = m.usuario_id "
+            "WHERE h.paciente_id = %s "
+            "ORDER BY h.fecha DESC",
+            (paciente_id,),
+        )
+        for item in historial:
+            rows.append(
+                {
+                    "tipo": "historial",
+                    "id": item["id"],
+                    "fecha": item["fecha"],
+                    "paciente": paciente_nombre,
+                    "descripcion": item["descripcion"],
+                    "tratamiento": item["tratamiento"],
+                    "medico": format_nombre(item["medico_nombre"], item["medico_apellidos"]),
+                }
+            )
+    else:
+        if fecha_agenda is None:
+            fecha_agenda = date.today()
+        citas = fetch_all(
+            appointment_query(
+                "WHERE c.medico_id = %s AND c.fecha = %s "
+                "AND c.estado IN ('ACEPTADA', 'PENDIENTE', 'COMPLETADA', 'NO_ASISTIO')"
+            ),
+            (medico_id, fecha_agenda),
+        )
+        for cita in citas:
+            rows.append(
+                {
+                    "tipo": "agenda",
+                    "id": cita["id"],
+                    "fecha": cita["fecha"],
+                    "hora": cita["hora_inicio"],
+                    "paciente": format_nombre(cita["paciente_nombre"], cita["paciente_apellidos"]),
+                    "email": cita["paciente_email"],
+                    "telefono": cita["paciente_telefono"],
+                    "servicio": cita["servicio_nombre"],
+                    "estado": cita["estado"],
+                    "motivo": cita["motivo"],
+                    "tratamiento": cita["notas_medico"],
+                    "medico": format_nombre(cita["medico_nombre"], cita["medico_apellidos"]),
+                }
+            )
+
+    if not rows:
+        raise ValueError("No hay datos suficientes en la base de datos para responder.")
+
+    return build_rows_csv(rows)[:MAX_GEMINI_CONTEXT_CHARS]
+
+
+def build_gemini_prompt(question, csv_content):
+    return (
+        "Eres un asistente para un dentista. Responde en español, con tono claro y profesional. "
+        "Analiza solo la información exportada desde la base de datos en formato CSV y no inventes datos. "
+        "Si faltan columnas o datos, dilo. "
+        "No des diagnósticos cerrados ni sustituyas el criterio del médico; resume y organiza la información clínica. "
+        "Empieza directamente con la respuesta útil, sin frases introductorias largas. "
+        "Si no hay tratamientos u observaciones, responde claramente que no constan en Dentify. "
+        "Usa Markdown sencillo con secciones cortas, negritas para datos importantes y listas claras.\n\n"
+        f"Pregunta del médico:\n{question}\n\n"
+        f"CSV generado automáticamente desde Dentify:\n{csv_content}"
+    )
+
+
+def ask_gemini(question, csv_content):
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise RuntimeError("Falta configurar GEMINI_API_KEY en el entorno.")
+
+    endpoint = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+        f"?key={api_key}"
+    )
+    payload = {
+        "contents": [
+            {
+                "role": "user",
+                "parts": [{"text": build_gemini_prompt(question, csv_content)}],
+            }
+        ],
+        "generationConfig": {
+            "temperature": 0.2,
+            "maxOutputTokens": 1600,
+            "thinkingConfig": {"thinkingBudget": 0},
+        },
+    }
+    data = json.dumps(payload).encode("utf-8")
+    gemini_request = Request(
+        endpoint,
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+
+    try:
+        with urlopen(gemini_request, timeout=25) as response:
+            result = json.loads(response.read().decode("utf-8"))
+    except HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="ignore")
+        if exc.code == 429:
+            raise RuntimeError(
+                "Gemini ha alcanzado la cuota gratuita o el límite de velocidad de tu proyecto. "
+                "Espera unos minutos, revisa el uso en AI Studio o cambia a gemini-2.5-flash-lite."
+            ) from exc
+        try:
+            message = json.loads(detail).get("error", {}).get("message", "")
+        except json.JSONDecodeError:
+            message = ""
+        if not message:
+            message = "No se ha podido completar la consulta."
+        raise RuntimeError(f"Gemini ha devuelto un error ({exc.code}). {message[:240]}") from exc
+    except URLError as exc:
+        raise RuntimeError(f"No se ha podido conectar con Gemini: {exc.reason}") from exc
+
+    candidates = result.get("candidates", [])
+    if not candidates:
+        raise RuntimeError("Gemini no ha devuelto una respuesta.")
+
+    parts = candidates[0].get("content", {}).get("parts", [])
+    answer = "\n".join(part.get("text", "") for part in parts).strip()
+    if not answer:
+        raise RuntimeError("Gemini ha devuelto una respuesta vacía.")
+    return answer
 
 
 @app.template_filter("hora")
@@ -444,6 +713,71 @@ def build_calendar_days(reference_date, medico_id, servicio_id):
     return days
 
 
+def get_admin_patients_with_history():
+    pacientes = fetch_all(
+        "SELECT p.id, p.observaciones, u.nombre, u.apellidos, u.email, u.telefono, "
+        "COUNT(DISTINCT c.id) AS total_citas, "
+        "SUM(CASE WHEN c.estado = 'COMPLETADA' THEN 1 ELSE 0 END) AS completadas, "
+        "SUM(CASE WHEN c.estado = 'NO_ASISTIO' THEN 1 ELSE 0 END) AS no_asistio, "
+        "MAX(c.fecha) AS ultima_cita "
+        "FROM pacientes p "
+        "JOIN usuarios u ON u.id = p.usuario_id "
+        "LEFT JOIN citas c ON c.paciente_id = p.id "
+        "GROUP BY p.id, p.observaciones, u.nombre, u.apellidos, u.email, u.telefono "
+        "ORDER BY ultima_cita DESC, u.nombre ASC"
+    )
+    historiales = {}
+    rows = fetch_all(
+        "SELECT h.*, up.nombre AS paciente_nombre, up.apellidos AS paciente_apellidos, "
+        "um.nombre AS medico_nombre, um.apellidos AS medico_apellidos "
+        "FROM historial_pacientes h "
+        "JOIN pacientes p ON p.id = h.paciente_id "
+        "JOIN usuarios up ON up.id = p.usuario_id "
+        "JOIN medicos m ON m.id = h.medico_id "
+        "JOIN usuarios um ON um.id = m.usuario_id "
+        "ORDER BY h.fecha DESC"
+    )
+    for row in rows:
+        historiales.setdefault(row["paciente_id"], []).append(row)
+    return pacientes, historiales
+
+
+def get_doctor_patients_with_history(medico_id):
+    pacientes = fetch_all(
+        "SELECT p.id, p.observaciones, u.nombre, u.apellidos, u.email, u.telefono, "
+        "COUNT(DISTINCT c.id) AS total_citas, "
+        "SUM(CASE WHEN c.estado = 'COMPLETADA' THEN 1 ELSE 0 END) AS completadas, "
+        "SUM(CASE WHEN c.estado = 'NO_ASISTIO' THEN 1 ELSE 0 END) AS no_asistio, "
+        "MAX(c.fecha) AS ultima_cita "
+        "FROM citas c "
+        "JOIN pacientes p ON p.id = c.paciente_id "
+        "JOIN usuarios u ON u.id = p.usuario_id "
+        "WHERE c.medico_id = %s "
+        "GROUP BY p.id, p.observaciones, u.nombre, u.apellidos, u.email, u.telefono "
+        "ORDER BY ultima_cita DESC, u.nombre ASC",
+        (medico_id,),
+    )
+    historiales = {}
+    if pacientes:
+        pacientes_ids = [paciente["id"] for paciente in pacientes]
+        placeholders = ",".join(["%s"] * len(pacientes_ids))
+        rows = fetch_all(
+            "SELECT h.*, up.nombre AS paciente_nombre, up.apellidos AS paciente_apellidos, "
+            "um.nombre AS medico_nombre, um.apellidos AS medico_apellidos "
+            "FROM historial_pacientes h "
+            "JOIN pacientes p ON p.id = h.paciente_id "
+            "JOIN usuarios up ON up.id = p.usuario_id "
+            "JOIN medicos m ON m.id = h.medico_id "
+            "JOIN usuarios um ON um.id = m.usuario_id "
+            f"WHERE h.paciente_id IN ({placeholders}) "
+            "ORDER BY h.fecha DESC",
+            tuple(pacientes_ids),
+        )
+        for row in rows:
+            historiales.setdefault(row["paciente_id"], []).append(row)
+    return pacientes, historiales
+
+
 @app.route("/admin.html")
 @login_required("ADMIN")
 def admin():
@@ -491,6 +825,7 @@ def admin():
     )
     citas = fetch_all(appointment_query("WHERE c.fecha >= CURDATE()"))
     pendientes = fetch_all(appointment_query("WHERE c.estado = 'PENDIENTE'"))
+    pacientes_admin, historiales_admin = get_admin_patients_with_history()
     return render_template(
         "admin.html",
         stats=stats,
@@ -499,6 +834,8 @@ def admin():
         ingresos_recientes=ingresos_recientes,
         citas=citas,
         pendientes=pendientes,
+        pacientes_admin=pacientes_admin,
+        historiales_admin=historiales_admin,
         vista=vista,
     )
 
@@ -678,12 +1015,16 @@ def doctor():
             (medico["id"],),
         )["total"],
     }
+    pacientes_doctor, historiales_doctor = get_doctor_patients_with_history(medico["id"])
     return render_template(
         "doctor.html",
         medico=medico,
         citas=citas,
         citas_activas=[cita for cita in citas if cita["estado"] in ("ACEPTADA", "PENDIENTE")],
         citas_cerradas=[cita for cita in citas if cita["estado"] in ("COMPLETADA", "NO_ASISTIO")],
+        chat_pacientes=get_doctor_chat_patients(medico["id"]),
+        pacientes_doctor=pacientes_doctor,
+        historiales_doctor=historiales_doctor,
         historiales=historiales,
         stats=stats,
         fecha_seleccionada=fecha_seleccionada,
@@ -729,6 +1070,44 @@ def doctor_asistencia(cita_id):
 
     flash("Asistencia actualizada.", "success")
     return redirect(url_for("doctor", fecha=cita["fecha"].isoformat()))
+
+
+@app.post("/doctor/chatbot")
+@login_required("MEDICO")
+def doctor_chatbot():
+    medico = get_medico_by_user(current_user_id())
+    if not medico:
+        return jsonify({"error": "Tu usuario no tiene ficha de médico."}), 403
+
+    payload = request.get_json(silent=True) or request.form
+    question = str(payload.get("question", "") or "").strip()
+    paciente_id_text = str(payload.get("paciente_id", "") or "").strip()
+    fecha_text = str(payload.get("fecha", "") or "").strip()
+
+    if not question:
+        return jsonify({"error": "Escribe una pregunta para Gemini."}), 400
+
+    paciente_id = None
+    if paciente_id_text:
+        try:
+            paciente_id = int(paciente_id_text)
+        except ValueError:
+            return jsonify({"error": "Paciente no válido."}), 400
+
+    try:
+        fecha_agenda = datetime.strptime(fecha_text, "%Y-%m-%d").date() if fecha_text else date.today()
+    except ValueError:
+        fecha_agenda = date.today()
+
+    try:
+        csv_content = build_doctor_context_csv(medico["id"], paciente_id, fecha_agenda)
+        answer = ask_gemini(question, csv_content)
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
+    except RuntimeError as exc:
+        return jsonify({"error": str(exc)}), 502
+
+    return jsonify({"answer": answer})
 
 
 @app.route("/logout")

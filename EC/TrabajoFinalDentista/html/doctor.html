@@ -7,7 +7,16 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <style>body{font-family:Inter,sans-serif}</style>
+    <style>
+        html{scroll-behavior:smooth}
+        body{font-family:Inter,sans-serif}
+        .gemini-content h3{font-size:0.95rem;font-weight:900;color:#0f172a;margin-top:0.85rem}
+        .gemini-content h3:first-child{margin-top:0}
+        .gemini-content p{margin-top:0.55rem;line-height:1.55}
+        .gemini-content ul{margin-top:0.55rem;display:grid;gap:0.45rem;padding-left:1.1rem;list-style:disc}
+        .gemini-content li{line-height:1.45}
+        .gemini-content strong{font-weight:900;color:#0f172a}
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen">
     <div class="flex min-h-screen">
@@ -19,6 +28,12 @@
             <nav class="mt-8 space-y-1 text-sm font-semibold">
                 <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-700" href="/doctor.html">
                     <span class="material-symbols-outlined text-lg">clinical_notes</span> Agenda
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#pacientes">
+                    <span class="material-symbols-outlined text-lg">groups</span> Pacientes
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="#gemini">
+                    <span class="material-symbols-outlined text-lg">smart_toy</span> Gemini
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100" href="/perfil.html">
                     <span class="material-symbols-outlined text-lg">account_circle</span> Mi perfil
@@ -76,7 +91,7 @@
                 </div>
             </section>
 
-            <section class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
+            <section id="agenda" class="scroll-mt-6 grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
                 <div class="xl:col-span-2 space-y-5">
                     <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
                         <div class="p-5 border-b border-slate-200 flex items-center justify-between gap-4">
@@ -194,7 +209,332 @@
                     </div>
                 </aside>
             </section>
+
+            <section id="gemini" class="scroll-mt-6 mt-8 bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div class="p-5 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-blue-700">smart_toy</span>
+                            <h2 class="text-2xl font-black">Gemini</h2>
+                        </div>
+                        <p class="text-slate-600 text-sm mt-1">Consulta historiales y agenda con una respuesta amplia y fácil de leer.</p>
+                    </div>
+                    <span class="inline-flex self-start lg:self-center items-center gap-2 rounded-full bg-blue-100 text-blue-800 px-3 py-2 text-sm font-black">
+                        <span class="material-symbols-outlined text-base">auto_awesome</span>
+                        Asistente clínico
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-12">
+                    <form id="doctorGeminiChat" class="xl:col-span-4 p-5 space-y-4 border-b xl:border-b-0 xl:border-r border-slate-200 bg-slate-50">
+                        <label class="block">
+                            <span class="text-sm font-black text-slate-700">Paciente</span>
+                            <select
+                                id="doctorGeminiPatient"
+                                class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600 text-sm"
+                                name="paciente_id"
+                            >
+                                <option value="">Agenda de {{ fecha_seleccionada|fecha }}</option>
+                                {% for paciente in chat_pacientes %}
+                                    <option value="{{ paciente.id }}" {% if loop.first %}selected{% endif %}>
+                                        {{ paciente.nombre }} {{ paciente.apellidos or '' }} · {{ paciente.total_citas }} cita{% if paciente.total_citas != 1 %}s{% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-2">
+                            <button class="geminiSuggestion rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700" type="button" data-scope="patient" data-question="Dime el historial que tiene este paciente de forma resumida.">
+                                Historial resumido
+                            </button>
+                            <button class="geminiSuggestion rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700" type="button" data-scope="patient" data-question="Resume los últimos tratamientos, fechas y observaciones importantes de este paciente.">
+                                Últimos tratamientos
+                            </button>
+                            <button class="geminiSuggestion rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700" type="button" data-scope="patient" data-question="Qué avisos debería revisar antes de atender a este paciente según su historial?">
+                                Avisos antes de atender
+                            </button>
+                            <button class="geminiSuggestion rounded-lg border border-slate-200 bg-white px-3 py-2 text-left text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700" type="button" data-scope="agenda" data-question="Hazme un resumen de la agenda seleccionada con pacientes, estados y motivos.">
+                                Resumen de agenda
+                            </button>
+                        </div>
+
+                        <label class="block">
+                            <span class="text-sm font-black text-slate-700">Otra pregunta</span>
+                            <textarea
+                                id="doctorGeminiQuestion"
+                                class="mt-2 w-full rounded-lg border-slate-300 focus:border-blue-600 focus:ring-blue-600 text-sm"
+                                name="question"
+                                rows="4"
+                                placeholder="Escribe una pregunta para Gemini..."
+                                required
+                            >Dime el historial que tiene este paciente</textarea>
+                        </label>
+
+                        <input type="hidden" name="fecha" value="{{ fecha_seleccionada.isoformat() }}">
+
+                        <button
+                            id="doctorGeminiButton"
+                            class="w-full rounded-lg bg-blue-700 text-white py-3 font-black hover:bg-blue-800 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:bg-slate-400"
+                            type="submit"
+                        >
+                            <span class="material-symbols-outlined text-lg">send</span>
+                            Preguntar
+                        </button>
+                    </form>
+
+                    <div class="xl:col-span-8 p-5">
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="text-sm font-black text-slate-700">Respuesta</p>
+                            <span class="text-xs font-bold text-slate-500">Los datos salen de Dentify</span>
+                        </div>
+                        <div id="doctorGeminiAnswer" class="gemini-content mt-3 rounded-lg bg-white border border-slate-200 p-5 text-sm text-slate-700 min-h-80 max-h-[560px] overflow-y-auto">
+                            <p>Elige un paciente o pregunta por la agenda.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pacientes" class="scroll-mt-6 mt-8 bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div class="p-5 border-b border-slate-200 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-black">Mis pacientes e historiales</h2>
+                        <p class="text-slate-600 text-sm">Consulta los pacientes que han pasado por tu agenda y su historial clínico.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <label class="relative block">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                            <input id="doctorPatientSearch" class="w-full sm:w-80 rounded-lg border-slate-300 pl-10 focus:border-blue-600 focus:ring-blue-600" type="search" placeholder="Buscar paciente, email o teléfono">
+                        </label>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-800 px-3 py-2 text-sm font-black">
+                            <span class="material-symbols-outlined text-base">groups</span>
+                            {{ pacientes_doctor|length }} pacientes
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-5 grid grid-cols-1 2xl:grid-cols-2 gap-4">
+                    {% for paciente in pacientes_doctor %}
+                        {% set historial_paciente = historiales_doctor.get(paciente.id, []) %}
+                        <article
+                            class="doctorPatientCard rounded-lg border border-slate-200 bg-slate-50 overflow-hidden"
+                            data-patient="{{ (paciente.nombre ~ ' ' ~ (paciente.apellidos or '') ~ ' ' ~ paciente.email ~ ' ' ~ (paciente.telefono or ''))|lower }}"
+                        >
+                            <details {% if loop.first %}open{% endif %}>
+                                <summary class="cursor-pointer list-none p-4 bg-white hover:bg-blue-50">
+                                    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-blue-700">account_circle</span>
+                                                <h3 class="text-xl font-black">{{ paciente.nombre }} {{ paciente.apellidos or '' }}</h3>
+                                            </div>
+                                            <p class="text-sm text-slate-600 mt-1">
+                                                {{ paciente.email }}{% if paciente.telefono %} · {{ paciente.telefono }}{% endif %}
+                                            </p>
+                                            {% if paciente.observaciones %}
+                                                <p class="text-sm text-slate-700 mt-2"><span class="font-bold">Observaciones:</span> {{ paciente.observaciones }}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="rounded-full bg-slate-100 text-slate-700 px-2 py-1 text-xs font-black">{{ paciente.total_citas or 0 }} citas</span>
+                                            <span class="rounded-full bg-emerald-100 text-emerald-800 px-2 py-1 text-xs font-black">{{ paciente.completadas or 0 }} completadas</span>
+                                            <span class="rounded-full bg-blue-100 text-blue-800 px-2 py-1 text-xs font-black">{{ historial_paciente|length }} historial</span>
+                                        </div>
+                                    </div>
+                                </summary>
+
+                                <div class="p-4 border-t border-slate-200">
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">Última cita conmigo</p>
+                                            <p class="font-black mt-1">{% if paciente.ultima_cita %}{{ paciente.ultima_cita|fecha }}{% else %}Sin citas{% endif %}</p>
+                                        </div>
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">No asistió</p>
+                                            <p class="font-black mt-1 text-red-600">{{ paciente.no_asistio or 0 }}</p>
+                                        </div>
+                                        <div class="rounded-lg bg-white border border-slate-200 p-3">
+                                            <p class="text-xs font-black text-slate-500 uppercase">Registros</p>
+                                            <p class="font-black mt-1 text-blue-700">{{ historial_paciente|length }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        {% for item in historial_paciente %}
+                                            <article class="rounded-lg bg-white border border-slate-200 p-4">
+                                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                                                    <div>
+                                                        <p class="text-xs text-slate-500">{{ item.fecha|fecha }} · {{ item.medico_nombre }} {{ item.medico_apellidos or '' }}</p>
+                                                        <p class="font-black mt-1">{{ item.descripcion }}</p>
+                                                    </div>
+                                                    <span class="inline-flex self-start rounded-full bg-slate-100 text-slate-700 px-2 py-1 text-xs font-black">Historial</span>
+                                                </div>
+                                                {% if item.tratamiento %}
+                                                    <p class="text-sm text-slate-700 mt-3">{{ item.tratamiento }}</p>
+                                                {% endif %}
+                                            </article>
+                                        {% else %}
+                                            <div class="rounded-lg bg-white border border-dashed border-slate-300 p-5 text-center">
+                                                <span class="material-symbols-outlined text-slate-400">history</span>
+                                                <p class="text-sm text-slate-500 mt-1">Sin historial médico registrado.</p>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </details>
+                        </article>
+                    {% else %}
+                        <p class="text-center text-slate-500 py-8 2xl:col-span-2">Todavía no tienes pacientes asociados a tu agenda.</p>
+                    {% endfor %}
+                    <p id="doctorPatientsEmpty" class="hidden text-center text-slate-500 py-8 2xl:col-span-2">No hay pacientes que coincidan con la búsqueda.</p>
+                </div>
+            </section>
         </main>
     </div>
+    <script>
+        const geminiForm = document.getElementById('doctorGeminiChat');
+        const geminiButton = document.getElementById('doctorGeminiButton');
+        const geminiAnswer = document.getElementById('doctorGeminiAnswer');
+        const geminiQuestion = document.getElementById('doctorGeminiQuestion');
+        const geminiPatient = document.getElementById('doctorGeminiPatient');
+        const suggestionButtons = document.querySelectorAll('.geminiSuggestion');
+        const doctorPatientSearch = document.getElementById('doctorPatientSearch');
+        const doctorPatientCards = document.querySelectorAll('.doctorPatientCard');
+        const doctorPatientsEmpty = document.getElementById('doctorPatientsEmpty');
+
+        function escapeHtml(value) {
+            return value
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function formatInlineMarkdown(value) {
+            return escapeHtml(value).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        }
+
+        function renderGeminiAnswer(text) {
+            const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+            const html = [];
+            let listOpen = false;
+
+            function closeList() {
+                if (listOpen) {
+                    html.push('</ul>');
+                    listOpen = false;
+                }
+            }
+
+            lines.forEach((line) => {
+                const bullet = line.match(/^[-*•]\s+(.*)$/);
+                const heading = line.match(/^#{1,4}\s+(.*)$/) || line.match(/^\*\*(.+?)\*\*:?\s*$/);
+
+                if (bullet) {
+                    if (!listOpen) {
+                        html.push('<ul>');
+                        listOpen = true;
+                    }
+                    html.push(`<li>${formatInlineMarkdown(bullet[1])}</li>`);
+                    return;
+                }
+
+                closeList();
+                if (heading) {
+                    html.push(`<h3>${formatInlineMarkdown(heading[1])}</h3>`);
+                } else {
+                    html.push(`<p>${formatInlineMarkdown(line)}</p>`);
+                }
+            });
+            closeList();
+            geminiAnswer.className = 'gemini-content mt-2 rounded-lg bg-white border border-slate-200 p-3 text-sm text-slate-700 min-h-24';
+            geminiAnswer.innerHTML = html.join('');
+        }
+
+        function renderGeminiInfo(text) {
+            geminiAnswer.className = 'gemini-content mt-2 rounded-lg bg-white border border-slate-200 p-3 text-sm text-slate-700 min-h-24';
+            geminiAnswer.innerHTML = `<p>${escapeHtml(text)}</p>`;
+        }
+
+        function renderGeminiError(text) {
+            geminiAnswer.className = 'gemini-content mt-2 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-800 min-h-24';
+            geminiAnswer.innerHTML = `
+                <p class="font-black flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">error</span>
+                    No se pudo obtener la respuesta
+                </p>
+                <p>${escapeHtml(text)}</p>
+            `;
+        }
+
+        async function askGemini() {
+            geminiButton.disabled = true;
+            renderGeminiInfo('Consultando datos de Dentify con Gemini...');
+
+            try {
+                const formData = new FormData(geminiForm);
+                const response = await fetch('/doctor/chatbot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paciente_id: formData.get('paciente_id'),
+                        question: formData.get('question'),
+                        fecha: formData.get('fecha'),
+                    }),
+                });
+                const data = await response.json().catch(() => ({
+                    error: 'El servidor ha devuelto una respuesta inesperada.',
+                }));
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'No se ha podido consultar Gemini.');
+                }
+
+                renderGeminiAnswer(data.answer);
+            } catch (error) {
+                renderGeminiError(error.message);
+            } finally {
+                geminiButton.disabled = false;
+            }
+        }
+
+        suggestionButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (button.dataset.scope === 'patient' && !geminiPatient.value) {
+                    renderGeminiError('Selecciona un paciente para usar esta pregunta.');
+                    return;
+                }
+                if (button.dataset.scope === 'agenda') {
+                    geminiPatient.value = '';
+                }
+                geminiQuestion.value = button.dataset.question;
+                askGemini();
+            });
+        });
+
+        if (geminiForm) {
+            geminiForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                askGemini();
+            });
+        }
+
+        if (doctorPatientSearch) {
+            doctorPatientSearch.addEventListener('input', () => {
+                const query = doctorPatientSearch.value.trim().toLowerCase();
+                let visible = 0;
+
+                doctorPatientCards.forEach((card) => {
+                    const matches = card.dataset.patient.includes(query);
+                    card.classList.toggle('hidden', !matches);
+                    if (matches) {
+                        visible += 1;
+                    }
+                });
+
+                doctorPatientsEmpty.classList.toggle('hidden', visible !== 0);
+            });
+        }
+    </script>
 </body>
 </html>
